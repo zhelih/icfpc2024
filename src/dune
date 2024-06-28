@@ -1,0 +1,6 @@
+(env (_ (flags :standard)))
+
+(executable
+  (name main)
+  (libraries devkit extlib containers)
+)
