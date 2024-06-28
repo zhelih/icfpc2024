@@ -36,20 +36,22 @@ let comm input =
   eprintfn "> %S" (if String.length input > 100 then String.slice input ~last:100 ^ "..." else input);
   decode @@ raw_comm @@ encode input
 
-let is_better ~task solution =
-  match Std.input_file (task ^ ".solution") with
+let is_better ~task submission =
+  let score = String.length submission in
+  match Std.input_file (task ^ ".submission") with
   | exception _ ->
-    eprintfn "%s: new solution %d" task (String.length solution);
+    eprintfn "%s: new submission %d" task score;
     true
   | previous ->
-    if String.length solution < String.length previous then (* encoding doesn't matter (yet?) *)
+    let previous = String.length previous in
+    if score < previous then
     begin
-      eprintfn "%s: our solution %d is better than previous solution %d" task (String.length solution) (String.length previous);
+      eprintfn "%s: our submission %d is better than previous submission %d" task score previous;
       true
     end
     else
     begin
-      eprintfn "%s: existing solution %d is not worse than current solution %d" task (String.length previous) (String.length solution);
+      eprintfn "%s: existing submission %d is not worse than current submission %d" task previous score;
       false
     end
 
@@ -60,16 +62,19 @@ let pick_solver = function
 let solve submit task =
   let solver = pick_solver task in
   let solution = solver task in
+  (* TODO encode smarter *)
+  let submission = encode @@ sprintf "solve %s %s" (Filename.basename task) solution in
   match submit with
   | false ->
-    let (_:bool) = is_better ~task solution in
+    let (_:bool) = is_better ~task submission in
     print_endline solution
   | true ->
-    if is_better ~task solution then
+    if is_better ~task submission then
     begin
-      let answer = comm @@ sprintf "solve %s %s" (Filename.basename task) solution in
+      eprintfn "> solve %s ..." (Filename.basename task);
+      let answer = decode @@ raw_comm submission in
       print_endline answer;
-      if String.starts_with answer "Correct" then Std.output_file ~filename:(task ^ ".solution") ~text:solution
+      if String.starts_with answer "Correct" then Std.output_file ~filename:(task ^ ".submission") ~text:submission
     end
 
 let () =
@@ -79,12 +84,11 @@ let () =
   | [] ->
     print_endline @@ comm "get scoreboard";
     print_endline @@ comm "get index"
-  | "raw"::s::[] ->
-    print_endline @@ raw_comm @@ encode s
-  | "get"::x::[] ->
-    print_endline @@ comm @@ sprintf "get %s" x;
+  | "encode"::[] -> Std.input_all stdin |> encode |> print_string
+  | "decode"::[] -> Std.input_all stdin |> decode |> print_string
+  | "raw"::s::[] -> print_endline @@ raw_comm @@ encode s
+  | "get"::x::[] -> print_endline @@ comm @@ sprintf "get %s" x;
   | "solve"::task::[] -> solve true task
   | "try"::task::[] -> solve false task
-(*   | "solve"::task::[] when String.starts_with task "task/spaceship" -> Spaceship.solve task *)
   | _ ->
     Exn.fail "wut"
