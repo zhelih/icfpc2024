@@ -40,13 +40,16 @@ type t =
 let decode_int s = fst @@ String.fold_right (fun c (acc,exp) -> (Char.code c - 33) * exp + acc, exp * 94) s (0,1)
 let encode_int n =
   let rec encode acc n =
-    if n = 0 then
+    if n = 0 && acc <> [] then
       String.of_seq @@ List.to_seq acc
     else
       let c = Char.chr (n mod 94 + 33) in
       encode (c::acc) (n / 94)
   in
   encode [] n
+
+let decode_string = String.map (fun c -> alphabet.[Char.code c - 33])
+let encode_string = String.map (fun c -> alphabet_inv.[Char.code c])
 
 let rec decode next =
   match next () with
@@ -63,7 +66,7 @@ let rec decode next =
   | _ ->
   let int () = decode_int @@ String.slice ~first:1 s in
   match s.[0] with
-  | 'S' -> S (String.map (fun c -> alphabet.[Char.code c - 33]) @@ String.slice ~first:1 s)
+  | 'S' -> S (decode_string @@ String.slice ~first:1 s)
   | 'B' -> assert (String.length s = 2);
     let op =
       match s.[1] with
@@ -114,7 +117,7 @@ let encode_binop = function
 | And -> '&'
 
 let rec encode = function
-  | S s -> "S" ^ String.map (fun c -> alphabet_inv.[Char.code c]) s
+  | S s -> "S" ^ encode_string s
   | Bool true -> "T"
   | Bool false -> "F"
   | If (c,a,b) -> sprintf "? %s %s %s" (encode c) (encode a) (encode b)
@@ -156,8 +159,8 @@ and eval = function
 | V n -> Exn.fail "unbound variable %d" n
 | Neg a -> I (Int.neg @@ int_eval a)
 | Not a -> Bool (not @@ bool_eval a)
-| Int_of_string a -> I (decode_int @@ str_eval a)
-| String_of_int a -> S (encode_int @@ int_eval a)
+| Int_of_string a -> I (decode_int @@ encode_string @@ str_eval a)
+| String_of_int a -> S (decode_string @@ encode_int @@ int_eval a)
 | If (c,a,b) -> eval @@ if bool_eval c then a else b
 | B (op,a,b) ->
   let int e op = I (op (e a) (e b)) in

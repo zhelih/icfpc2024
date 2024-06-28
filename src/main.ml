@@ -21,7 +21,7 @@ let raw_comm data =
 
 let comm input =
   eprintfn "> %S" (if String.length input > 100 then String.slice input ~last:100 ^ "..." else input);
-  decode @@ raw_comm @@ encode (S input)
+  eval @@ decode @@ raw_comm @@ encode (S input)
 
 let is_better ~task submission =
   let score = String.length submission in
@@ -86,9 +86,9 @@ let () =
   | "encode"::[] -> Std.input_all stdin |> String.trim |> (fun s -> S s) |> encode |> print_string
   | "decode"::[] -> Std.input_all stdin |> String.trim |> decode |> pretty Lang.pp |> print_string
   | "eval"::[] -> Std.input_all stdin |> String.trim |> decode |> eval |> pretty Lang.pp |> print_string
-  | "raw"::s::[] -> print_endline @@ raw_comm @@ encode (S s)
-  | "ast"::s::[] -> print_endline @@ pretty Lang.pp @@ decode @@ raw_comm @@ encode (S s)
-  | "get"::l -> print_endline @@ expect_string @@ eval @@ comm @@ sprintf "get %s" (String.concat " " l);
+(*   | "raw"::s::[] -> print_endline @@ raw_comm @@ encode (S s) *)
+  | "send"::l -> print_endline @@ pretty Lang.pp @@ comm @@ String.concat " " l
+  | "get"::l -> print_endline @@ expect_string @@ comm @@ sprintf "get %s" (String.concat " " l)
   | "solve"::task::[] -> solve true task
   | "try"::task::[] -> solve false task
   | _ ->

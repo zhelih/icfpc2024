@@ -1,4 +1,4 @@
-.PHONY: build clean run solve
+.PHONY: build clean run solve index tasks
 
 build:
 	dune build
@@ -12,7 +12,11 @@ clean:
 task/lambdaman% task/spaceship% task/3d%:
 	if ./run get $(shell basename $@) > $@.tmp; then mv $@.tmp $@; else rm $@.tmp; fi
 
-tasks: $(foreach n,$(shell seq 1 21),task/lambdaman$n) $(foreach n,$(shell seq 1 25),task/spaceship$n) $(foreach n,$(shell seq 1 12),task/3d$n)
+tasks: $(foreach n,$(shell seq 1 21),task/lambdaman$n) $(foreach n,$(shell seq 1 25),task/spaceship$n) $(foreach n,$(shell seq 1 12),task/3d$n) index
+
+index:
+	./run get index > task/index
+	./run get scoreboard > task/scoreboard
 	./run get lambdaman > task/lambdaman
 	./run get spaceship > task/spaceship
 	./run get 3d > task/3d
@@ -23,4 +27,8 @@ solve_lambdaman:
 solve_spaceship:
 	for n in `seq 1 25`; do ./run solve task/spaceship$$n; done
 
-solve: solve_lambdaman solve_spaceship
+solve_hello:
+	./run get language_test
+	./run send solve language_test 4w3s0m3
+
+solve: solve_lambdaman solve_spaceship solve_hello
