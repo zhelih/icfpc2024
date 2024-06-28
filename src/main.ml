@@ -2,6 +2,8 @@ open Printf
 open ExtLib
 open Devkit
 
+open Lang
+
 let token = "aba831d7-66ed-41d3-b757-fc719f5ad979"
 
 let raw_comm data =
@@ -17,24 +19,9 @@ let raw_comm data =
   | `Ok s -> s
   | `Error s -> Exn.fail "comm %S failed: %s" data s
 
-let alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!\"#$%&'()*+,-./:;<=>?@[\\]^_`|~ \n"
-let alphabet_inv = String.init 256 (fun i -> match String.index alphabet (Char.chr i) with exception _ -> '\x00' | p -> Char.chr (p+33))
-let () = assert (String.length alphabet = 94)
-
-(* type t = S of string *)
-
-let decode s =
-  assert (s <> "");
-  match s.[0] with
-  | 'S' -> String.map (fun c -> alphabet.[Char.code c - 33]) @@ String.slice ~first:1 s
-  | c -> Exn.fail "unsupported indicator %c" c
-
-let encode = function
-  | s -> "S" ^ String.map (fun c -> alphabet_inv.[Char.code c]) s
-
-let comm input =
+let string_comm input =
   eprintfn "> %S" (if String.length input > 100 then String.slice input ~last:100 ^ "..." else input);
-  decode @@ raw_comm @@ encode input
+  expect_string @@ decode @@ raw_comm @@ encode (S input)
 
 let is_better ~task submission =
   let score = String.length submission in
@@ -63,7 +50,7 @@ let solve submit task =
   let solver = pick_solver task in
   let solution = solver task in
   (* TODO encode smarter *)
-  let submission = encode @@ sprintf "solve %s %s" (Filename.basename task) solution in
+  let submission = encode @@ S (sprintf "solve %s %s" (Filename.basename task) solution) in
   match submit with
   | false ->
     let (_:bool) = is_better ~task submission in
@@ -72,22 +59,24 @@ let solve submit task =
     if is_better ~task submission then
     begin
       eprintfn "> solve %s ..." (Filename.basename task);
-      let answer = decode @@ raw_comm submission in
+      let answer = expect_string @@ decode @@ raw_comm submission in
       print_endline answer;
       if String.starts_with answer "Correct" then Std.output_file ~filename:(task ^ ".submission") ~text:submission
     end
 
 let () =
-  assert ("SB%,,/}Q/2,$_" = encode "Hello World!");
-  assert ("get index" = decode "S'%4}).$%8");
+  assert (encode @@ S "Hello World!" = "SB%,,/}Q/2,$_");
+  assert (S "get index" = decode "S'%4}).$%8");
+  assert (I 1337 = decode "I/6");
+(*   assert (encode @@ I 1337 = "I/6"); *)
   match Nix.args with
   | [] ->
-    print_endline @@ comm "get scoreboard";
-    print_endline @@ comm "get index"
-  | "encode"::[] -> Std.input_all stdin |> encode |> print_string
-  | "decode"::[] -> Std.input_all stdin |> decode |> print_string
-  | "raw"::s::[] -> print_endline @@ raw_comm @@ encode s
-  | "get"::x::[] -> print_endline @@ comm @@ sprintf "get %s" x;
+    print_endline @@ string_comm "get scoreboard";
+    print_endline @@ string_comm "get index"
+  | "encode"::[] -> Std.input_all stdin |> String.trim |> (fun s -> S s) |> encode |> print_string
+  | "decode"::[] -> Std.input_all stdin |> String.trim |> decode |> expect_string |> print_string
+  | "raw"::s::[] -> print_endline @@ raw_comm @@ encode (S s)
+  | "get"::x::[] -> print_endline @@ string_comm @@ sprintf "get %s" x;
   | "solve"::task::[] -> solve true task
   | "try"::task::[] -> solve false task
   | _ ->

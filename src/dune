@@ -1,4 +1,4 @@
-(env (_ (flags -strict-formats -strict-sequence -short-paths -w +a-44-70)))
+(env (_ (flags -strict-formats -strict-sequence -short-paths -w +a-4-44-70)))
 
 (executable
   (name main)
