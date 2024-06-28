@@ -19,9 +19,9 @@ let raw_comm data =
   | `Ok s -> s
   | `Error s -> Exn.fail "comm %S failed: %s" data s
 
-let string_comm input =
+let comm input =
   eprintfn "> %S" (if String.length input > 100 then String.slice input ~last:100 ^ "..." else input);
-  expect_string @@ decode @@ raw_comm @@ encode (S input)
+  decode @@ raw_comm @@ encode (S input)
 
 let is_better ~task submission =
   let score = String.length submission in
@@ -64,6 +64,14 @@ let solve submit task =
       if String.starts_with answer "Correct" then Std.output_file ~filename:(task ^ ".submission") ~text:submission
     end
 
+let pretty pp t =
+  let buf = Buffer.create 10 in
+  let fmt = Format.formatter_of_buffer buf in
+  Format.pp_set_margin fmt 240;
+  pp fmt t;
+  Format.pp_print_flush fmt ();
+  Buffer.contents buf
+
 let () =
   assert (encode @@ S "Hello World!" = "SB%,,/}Q/2,$_");
   assert (S "get index" = decode "S'%4}).$%8");
@@ -71,12 +79,13 @@ let () =
 (*   assert (encode @@ I 1337 = "I/6"); *)
   match Nix.args with
   | [] ->
-    print_endline @@ string_comm "get scoreboard";
-    print_endline @@ string_comm "get index"
+    print_endline @@ expect_string @@ comm "get scoreboard";
+    print_endline @@ expect_string @@ comm "get index"
   | "encode"::[] -> Std.input_all stdin |> String.trim |> (fun s -> S s) |> encode |> print_string
-  | "decode"::[] -> Std.input_all stdin |> String.trim |> decode |> expect_string |> print_string
+  | "decode"::[] -> Std.input_all stdin |> String.trim |> decode |> pretty Lang.pp |> print_string
   | "raw"::s::[] -> print_endline @@ raw_comm @@ encode (S s)
-  | "get"::x::[] -> print_endline @@ string_comm @@ sprintf "get %s" x;
+  | "ast"::s::[] -> print_endline @@ pretty Lang.pp @@ decode @@ raw_comm @@ encode (S s)
+  | "get"::x::[] -> print_endline @@ expect_string @@ comm @@ sprintf "get %s" x;
   | "solve"::task::[] -> solve true task
   | "try"::task::[] -> solve false task
   | _ ->

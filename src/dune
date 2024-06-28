@@ -3,4 +3,5 @@
 (executable
   (name main)
   (libraries devkit extlib containers)
+  (preprocess (pps ppx_deriving.show))
 )
