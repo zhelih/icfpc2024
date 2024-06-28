@@ -44,6 +44,7 @@ let is_better ~task submission =
 
 let pick_solver = function
 | s when String.starts_with s "task/lambdaman" -> Lambdaman.solve
+| s when String.starts_with s "task/spaceship" -> Spaceship.solve
 | s -> Exn.fail "idk how to solve %s" s
 
 let solve submit task =

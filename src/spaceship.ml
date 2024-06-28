@@ -82,7 +82,8 @@ let walk points =
 let solve file =
    let points = reorder_points @@ points_of_string @@ String.trim @@ Std.input_file file in
    walk points
-
+(*
 let () =
   let debug = solve1d 5 10 3 10 in
   List.iter show_t_direction debug
+  *)
