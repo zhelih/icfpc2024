@@ -21,3 +21,5 @@ solve_lambdaman:
 
 solve_spaceship:
 	for n in `seq 1 25`; do ./run solve task/spaceship$$n; done
+
+solve: solve_lambdaman solve_spaceship
