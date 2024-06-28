@@ -7,31 +7,31 @@ Moves are represented with a single digit, inspired by the old numeric pad on a 
 Now the challenge is the following: given a list of squares to be visited, find a sequence of moves that visits all those squares. Your solution may consist of at most `10,000,000` moves.
 
 The following levels are available:
-* [spaceship1] Best score: 5.
-* [spaceship2] Best score: 49.
-* [spaceship3] Best score: 10.
-* [spaceship4] Best score: 99.
-* [spaceship5] Best score: 119.
-* [spaceship6] Best score: 123.
+* [spaceship1] Your score: 5. Best score: 5.
+* [spaceship2] Your score: 49. Best score: 49.
+* [spaceship3] Your score: 49. Best score: 10.
+* [spaceship4] Your score: 3914. Best score: 99.
+* [spaceship5] Your score: 119. Best score: 116.
+* [spaceship6] Best score: 117.
 * [spaceship7] Best score: 94.
-* [spaceship8] Best score: 91.
-* [spaceship9] Best score: 260.
-* [spaceship10] Best score: 405.
+* [spaceship8] Best score: 90.
+* [spaceship9] Best score: 213.
+* [spaceship10] Best score: 309.
 * [spaceship11] Best score: 8192.
 * [spaceship12] Best score: 8192.
-* [spaceship13] Best score: 28602.
+* [spaceship13] Best score: 23838.
 * [spaceship14] Best score: 210.
 * [spaceship15] Best score: 43.
-* [spaceship16] Best score: 1975.
+* [spaceship16] Best score: 1716.
 * [spaceship17] Best score: 440.
 * [spaceship18] Best score: 1959.
-* [spaceship19] Best score: 15323.
-* [spaceship20] Best score: 4186.
-* [spaceship21] Best score: 4243.
+* [spaceship19] Best score: 13429.
+* [spaceship20] Best score: 2741.
+* [spaceship21] Best score: 2740.
 * [spaceship22] Best score: 1359.
-* [spaceship23] Best score: 385814.
+* [spaceship23] Best score: 191144.
 * [spaceship24] Best score: 799788.
-* [spaceship25] Best score: 894411.
+* [spaceship25] Best score: 861136.
 
 To submit a solution, send an ICFP expression that evaluates to:
 

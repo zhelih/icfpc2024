@@ -16,5 +16,8 @@ tasks: $(foreach n,$(shell seq 1 21),task/lambdaman$n) $(foreach n,$(shell seq 1
 	./run get lambdaman > task/lambdaman
 	./run get spaceship > task/spaceship
 
-solve:
+solve_lambdaman:
 	for n in `seq 1 21`; do ./run solve task/lambdaman$$n; done
+
+solve_spaceship:
+	for n in `seq 1 25`; do ./run solve task/spaceship$$n; done
