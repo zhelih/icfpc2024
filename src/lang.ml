@@ -38,6 +38,15 @@ type t =
 [@@deriving show {with_path=false}]
 
 let decode_int s = fst @@ String.fold_right (fun c (acc,exp) -> (Char.code c - 33) * exp + acc, exp * 94) s (0,1)
+let encode_int n =
+  let rec encode acc n =
+    if n = 0 then
+      String.of_seq @@ List.to_seq acc
+    else
+      let c = Char.chr (n mod 94 + 33) in
+      encode (c::acc) (n / 94)
+  in
+  encode [] n
 
 let rec decode next =
   match next () with
@@ -52,7 +61,6 @@ let rec decode next =
   | "U#" -> Int_of_string (decode next)
   | "U$" -> String_of_int (decode next)
   | _ ->
-  assert (String.length s > 1);
   let int () = decode_int @@ String.slice ~first:1 s in
   match s.[0] with
   | 'S' -> S (String.map (fun c -> alphabet.[Char.code c - 33]) @@ String.slice ~first:1 s)
@@ -111,8 +119,8 @@ let rec encode = function
   | Bool false -> "F"
   | If (c,a,b) -> sprintf "? %s %s %s" (encode c) (encode a) (encode b)
   | L _
-  | V _
-  | I _ -> Exn.fail "todo"
+  | V _ -> Exn.fail "todo"
+  | I n -> sprintf "I%s" (encode_int n)
   | Neg x -> sprintf "U- %s" (encode x)
   | Not x -> sprintf "U! %s" (encode x)
   | Int_of_string x -> sprintf "U# %s" (encode x)
@@ -126,7 +134,7 @@ let expect_string = function
 
 let type_error exp got = Exn.fail "Expected value of type %s, got %s" exp (show got)
 
-let substitude fn var exp =
+let substitute fn var exp =
   let rec subst = function
   | S _ | Bool _ | I _ as x -> x
   | B (op, a, b) -> B (op, subst a, subst b)
@@ -144,13 +152,12 @@ let rec int_eval x = match eval x with I n -> n | _ -> type_error "int" x
 and str_eval x = match eval x with S s -> s | _ -> type_error "string" x
 and bool_eval x = match eval x with Bool b -> b | _ -> type_error "bool" x
 and eval = function
-| Bool _ | I _ | S _ as x -> x
+| Bool _ | I _ | S _ | L _ as x -> x
 | V n -> Exn.fail "unbound variable %d" n
-| L (v,e) -> Exn.fail "lambda unchained (fun %d -> %s)" v (show e)
 | Neg a -> I (Int.neg @@ int_eval a)
 | Not a -> Bool (not @@ bool_eval a)
 | Int_of_string a -> I (decode_int @@ str_eval a)
-| String_of_int _ -> S (assert false)
+| String_of_int a -> S (encode_int @@ int_eval a)
 | If (c,a,b) -> eval @@ if bool_eval c then a else b
 | B (op,a,b) ->
   let int e op = I (op (e a) (e b)) in
@@ -171,6 +178,5 @@ and eval = function
   | Take -> S (String.slice ~last:(int_eval a) (str_eval b))
   | Apply ->
     match eval a with
-    | L (var, fn) ->
-      eval @@ substitude fn var b
+    | L (var, fn) -> eval @@ substitute fn var b
     | x -> type_error "lambda" x

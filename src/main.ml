@@ -77,8 +77,8 @@ let () =
   assert (encode @@ S "Hello World!" = "SB%,,/}Q/2,$_");
   assert (S "get index" = decode "S'%4}).$%8");
   assert (I 1337 = decode "I/6");
+  assert (encode @@ I 1337 = "I/6");
   Printexc.register_printer (function Failure s -> Some s | _ -> None);
-(*   assert (encode @@ I 1337 = "I/6"); *)
   match Nix.args with
   | [] ->
     print_endline @@ expect_string @@ comm "get scoreboard";
@@ -88,7 +88,7 @@ let () =
   | "eval"::[] -> Std.input_all stdin |> String.trim |> decode |> eval |> pretty Lang.pp |> print_string
   | "raw"::s::[] -> print_endline @@ raw_comm @@ encode (S s)
   | "ast"::s::[] -> print_endline @@ pretty Lang.pp @@ decode @@ raw_comm @@ encode (S s)
-  | "get"::x::[] -> print_endline @@ expect_string @@ comm @@ sprintf "get %s" x;
+  | "get"::x::[] -> print_endline @@ expect_string @@ eval @@ comm @@ sprintf "get %s" x;
   | "solve"::task::[] -> solve true task
   | "try"::task::[] -> solve false task
   | _ ->
