@@ -16,7 +16,14 @@ let points_of_string s =
   in
   List.map make_tuple l
 
-let reorder_points x = x
+let reorder_points x =
+  (* sort by x then y *)
+  let arr = Array.of_list x in
+  let compare p1 p2 =
+    if snd p1 != snd p2 then compare (snd p1) (snd p2) else compare (fst p1) (fst p2)
+  in
+  Array.sort compare arr;
+  Array.to_list arr
 
 (*** EL quick mess to solve something ***)
 
@@ -53,6 +60,7 @@ let solve1d l r v0 k =
         sol::sols
       end else sols
     end in
+    if List.length new_sols > 0 then new_sols else
     loop (g+1) new_sols
     end
   in
@@ -122,6 +130,9 @@ let walk points =
 
 let solve file =
    let points = reorder_points @@ points_of_string @@ String.trim @@ Std.input_file file in
+(*    let problem_id = Scanf.sscanf file "task/spaceship%d" (fun x -> x) in *)
+(*    let file = Printf.sprintf "/home/lykhovyd/progs/icfpc2024/icfpc2024/spaceship_sorted/spaceship%d.txt" problem_id in *)
+(*    let points = points_of_string @@ String.trim @@ Std.input_file file in *)
    walk points
 
 (*
