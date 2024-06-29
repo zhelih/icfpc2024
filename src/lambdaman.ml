@@ -41,7 +41,7 @@ let flood grid start =
   flood grid targets 1 [start,[]];
   !targets
 
-let grid_of_string s =
+let grid_of_string file s =
   let l = String.split_on_char '\n' s in
   assert (l <> []);
   let dimx = String.length @@ List.hd l in
@@ -49,15 +49,15 @@ let grid_of_string s =
   l |> List.iter (fun s -> assert (String.length s = dimx));
   let grid = Array.make_matrix (dimx+2) (dimy+2) Wall in
   let start = ref (0,0) in
+  let inverted = file = "task/lambdaman21" in
   l |> List.iteri (fun y s ->
-    let y = dimy-1-y in
-    s |> String.iteri (fun x c -> if c = 'L' then start := (x,y); if c = '.' || c = 'L' then set grid (x,y) Pill));
+    let y = if inverted then y else dimy-1-y in
+    s |> String.iteri (fun x c -> let x = if inverted then dimx -1 - x else x in if c = 'L' then start := (x,y); if c = '.' || c = 'L' then set grid (x,y) Pill));
   !start, grid
 
 let invert = List.rev_map inverse
 let tuck_or_cancel l x = l := match !l with [] -> [x] | h::t when h = inverse x -> t | _ -> x :: !l
 
-(* TODO delete visited targets *)
 let solve p grid =
   let targets = flood grid p |> pee (T.iter (fun (p,path) -> printfn "target %s path %d" (show grid p) (List.length path))) |> ref in
   let fullpath = ref [] in
@@ -80,6 +80,6 @@ let solve p grid =
 
 let solve file =
   Random.self_init ();
-  let (start,grid) = grid_of_string @@ String.trim @@ Std.input_file file in
+  let (start,grid) = grid_of_string file @@ String.trim @@ Std.input_file file in
   solve start grid
 
