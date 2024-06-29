@@ -157,6 +157,9 @@ let substitute fn var exp =
   in
   subst fn
 
+let three = Z.of_int 3
+let four = Z.of_int 4
+
 let rec int_eval x = match eval x with I n -> n | _ -> type_error "int" x
 and str_eval x = match eval x with S s -> s | _ -> type_error "string" x
 and bool_eval x = match eval x with Bool b -> b | _ -> type_error "bool" x
@@ -175,8 +178,16 @@ and eval = function
   | Plus -> int int_eval Z.add
   | Minus -> int int_eval Z.sub
   | Mul -> int int_eval Z.mul
-  | Div -> int int_eval Z.div
-  | Mod -> int int_eval Z.rem
+  | Div ->
+    let a = int_eval a in
+    let b = int_eval b in
+    if b = four then I (Z.shift_right a 2) else
+    int int_eval Z.div
+  | Mod ->
+    let a = int_eval a in
+    let b = int_eval b in
+    if b = four then I (Z.logand a three) else
+    int int_eval Z.rem
   | LT -> bool int_eval (<)
   | GT -> bool int_eval (>)
   | Or -> bool bool_eval (||)
