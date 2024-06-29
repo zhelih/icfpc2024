@@ -86,7 +86,9 @@ let () =
   | "encode"::[] -> Std.input_all stdin |> String.trim |> (fun s -> S s) |> encode |> print_string
   | "decode"::[] -> Std.input_all stdin |> String.trim |> decode |> pretty Lang.pp |> print_string
   | "eval"::[] -> Std.input_all stdin |> String.trim |> decode |> eval |> pretty Lang.pp |> print_string
-(*   | "raw"::s::[] -> print_endline @@ raw_comm @@ encode (S s) *)
+  | "send_raw"::l -> print_endline @@ pretty Lang.pp @@ decode @@ raw_comm @@ encode @@ S (String.concat " " l)
+  | "print_raw"::l -> print_endline @@ print @@ decode @@ raw_comm @@ encode @@ S (String.concat " " l)
+  | "raw"::l -> print_endline @@ raw_comm @@ encode @@ S (String.concat " " l)
   | "send"::l -> print_endline @@ pretty Lang.pp @@ comm @@ String.concat " " l
   | "get"::l -> print_endline @@ expect_string @@ comm @@ sprintf "get %s" (String.concat " " l)
   | "solve"::task::[] -> solve true task

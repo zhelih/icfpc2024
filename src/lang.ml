@@ -161,7 +161,7 @@ and eval = function
 | Not a -> Bool (not @@ bool_eval a)
 | Int_of_string a -> I (decode_int @@ encode_string @@ str_eval a)
 | String_of_int a -> S (decode_string @@ encode_int @@ int_eval a)
-| If (c,a,b) -> eval @@ if bool_eval c then a else b
+| If (c,a,b) -> if bool_eval c then eval a else eval b
 | B (op,a,b) ->
   let int e op = I (op (e a) (e b)) in
   let bool e op = Bool (op (e a) (e b)) in
@@ -181,5 +181,38 @@ and eval = function
   | Take -> S (String.slice ~last:(int_eval a) (str_eval b))
   | Apply ->
     match eval a with
-    | L (var, fn) -> eval @@ substitute fn var b
+    | L (var, fn) -> eval @@ substitute fn var b (* call-by-name *)
     | x -> type_error "lambda" x
+
+let rec print' indent exp =
+let print = print' indent in
+match exp with
+| Bool b -> sprintf "%B" b
+| I n -> sprintf "%d" n
+| S s -> sprintf "%S" s
+| L (v,fn) -> sprintf "(\\v%d ->\n%s%s)" v (String.make indent ' ') (print' (indent + 2) fn)
+| V n -> sprintf "v%d" n
+| Neg v -> sprintf "-%s" (print v)
+| Not v -> sprintf "!%s" (print v)
+| Int_of_string v -> sprintf "#%s" (print v)
+| String_of_int v -> sprintf "$%s" (print v)
+| If (c,a,b) -> sprintf "if %s then %s else %s" (print c) (print a) (print b)
+| B (op,a,b) ->
+  sprintf (match op with
+  | Plus -> "(%s+%s)"
+  | Mul -> "(%s*%s)"
+  | Div -> "(%s/%s)"
+  | Mod -> "(%s %% %s)"
+  | Minus -> "(%s-%s)"
+  | Or -> "(%s or %s)"
+  | And -> "(%s and %s)"
+  | LT -> "(%s < %s)"
+  | GT -> "(%s > %s)"
+  | Eq -> "(%s = %s)"
+  | Concat -> "(%s ^ %s)"
+  | Apply -> "(%s %s)"
+  | Drop -> "(drop %s %s)"
+  | Take -> "(take %s %s)"
+  ) (print a) (print b)
+
+let print = print' 2
