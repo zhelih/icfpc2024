@@ -120,13 +120,13 @@ let walk points =
  let rec loop ps x0 y0 vx0 vy0 output iter =
   Printf.printf "Working point %d / %d\n" iter (List.length points);
   match ps with
-  | [] -> output
+  | [] -> String.concat "" @@ List.rev output
   | (x,y)::tl ->
     let x = int_of_string x and y = int_of_string y in
     let s, vx, vy = solve2d x0 x y0 y vx0 vy0 in
-    loop tl x y vx vy (output ^ s) (iter+1)
+    loop tl x y vx vy (s :: output) (iter+1)
   in
-  loop points 0 0 0 0 "" 0
+  loop points 0 0 0 0 [] 0
 
 let solve file =
    let points = reorder_points @@ points_of_string @@ String.trim @@ Std.input_file file in
