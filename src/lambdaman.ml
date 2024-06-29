@@ -1,4 +1,5 @@
 open Printf
+open ExtLib
 open Devkit
 
 type d = L | R | U | D
@@ -20,7 +21,7 @@ let show_pos (x,y) = sprintf "(%d,%d)" x y
 let show_cell = function Wall -> "Wall" | Pill -> "Pill" | Reach n -> sprintf "Reach %d" n
 let show grid pos = sprintf "%s %s" (show_pos pos) (show_cell @@ get grid pos)
 
-module T = Set.Make(struct type t = (int*int) * d list let compare (a,pa) (b,pb) = compare (List.length pa,a) (List.length pb,b) end)
+module T = Set.Make(struct type t = (int*int) * d list let compare (a,_pa) (b,_pb) = compare a b end)
 
 let rec flood grid targets step front =
   match front with
@@ -60,15 +61,25 @@ let tuck_or_cancel l x = l := match !l with [] -> [x] | h::t when h = inverse x 
 let solve p grid =
   let targets = flood grid p |> pee (T.iter (fun (p,path) -> printfn "target %s path %d" (show grid p) (List.length path))) |> ref in
   let fullpath = ref [] in
+  let _cur = ref p in
   while not @@ T.is_empty !targets do
     let (_,path) as target = T.choose !targets in
+(*
+      let a = Array.of_list @@ T.elements !targets in
+      a.(Random.int (Array.length a))
+    in
+*)
     targets := T.remove target !targets;
+    (* cancel inverse faster but doesnt' matter *)
+(*     let realpath = path |> List.dropwhile (fun x -> match !fullpath with h::t when h = inverse x -> fullpath := t; true) in *)
     path |> List.iter (tuck_or_cancel fullpath);
+(*     path |> List.iter (fun x -> cur := next !cur x; targets := T.remove (!cur,[]) !targets); *)
     if not @@ T.is_empty !targets then invert path |> List.iter (tuck fullpath);
   done;
   List.rev_map (show_dir) !fullpath |> List.to_seq |> String.of_seq
 
 let solve file =
+  Random.self_init ();
   let (start,grid) = grid_of_string @@ String.trim @@ Std.input_file file in
   solve start grid
 
