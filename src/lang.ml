@@ -23,11 +23,17 @@ type binop =
 | Take
 [@@deriving show {with_path=false}]
 
+module Z = struct
+  include Z
+  let pp fmt z = Format.pp_print_string fmt (to_string z)
+  let show = to_string
+end
+
 type t =
 | S of string
 | Bool of bool
 | B of binop * t * t
-| I of int
+| I of Z.t
 | V of int
 | L of int * t
 | Neg of t
@@ -37,7 +43,7 @@ type t =
 | If of t * t * t
 [@@deriving show {with_path=false}]
 
-let decode_int s = fst @@ String.fold_right (fun c (acc,exp) -> (Char.code c - 33) * exp + acc, exp * 94) s (0,1)
+let decode_int s = fst @@ String.fold_right (fun c (acc,exp) -> let c = Char.code c - 33 in Z.(of_int c * exp + acc), Z.(exp * Z.of_int 94)) s Z.(zero,one)
 let encode_int n =
   let rec encode acc n =
     if n = 0 && acc <> [] then
@@ -89,8 +95,8 @@ let rec decode next =
     let a = decode next in
     let b = decode next in
     B (op,a,b)
-  | 'L' -> L (int (), decode next)
-  | 'v' -> V (int ())
+  | 'L' -> L (Z.to_int @@ int (), decode next)
+  | 'v' -> V (Z.to_int @@ int ())
   | 'I' -> I (int ())
   | c -> Exn.fail "unsupported indicator %c" c
 
@@ -123,7 +129,7 @@ let rec encode = function
   | If (c,a,b) -> sprintf "? %s %s %s" (encode c) (encode a) (encode b)
   | L _
   | V _ -> Exn.fail "todo"
-  | I n -> sprintf "I%s" (encode_int n)
+  | I n -> sprintf "I%s" (encode_int @@ Z.to_int n)
   | Neg x -> sprintf "U- %s" (encode x)
   | Not x -> sprintf "U! %s" (encode x)
   | Int_of_string x -> sprintf "U# %s" (encode x)
@@ -157,28 +163,28 @@ and bool_eval x = match eval x with Bool b -> b | _ -> type_error "bool" x
 and eval = function
 | Bool _ | I _ | S _ | L _ as x -> x
 | V n -> Exn.fail "unbound variable %d" n
-| Neg a -> I (Int.neg @@ int_eval a)
+| Neg a -> I (Z.neg @@ int_eval a)
 | Not a -> Bool (not @@ bool_eval a)
 | Int_of_string a -> I (decode_int @@ encode_string @@ str_eval a)
-| String_of_int a -> S (decode_string @@ encode_int @@ int_eval a)
+| String_of_int a -> S (decode_string @@ encode_int @@ Z.to_int @@ int_eval a)
 | If (c,a,b) -> if bool_eval c then eval a else eval b
 | B (op,a,b) ->
   let int e op = I (op (e a) (e b)) in
   let bool e op = Bool (op (e a) (e b)) in
   match op with
-  | Plus -> int int_eval (+)
-  | Minus -> int int_eval (-)
-  | Mul -> int int_eval ( * )
-  | Div -> int int_eval (/)
-  | Mod -> int int_eval (mod)
+  | Plus -> int int_eval Z.add
+  | Minus -> int int_eval Z.sub
+  | Mul -> int int_eval Z.mul
+  | Div -> int int_eval Z.div
+  | Mod -> int int_eval Z.rem
   | LT -> bool int_eval (<)
   | GT -> bool int_eval (>)
   | Or -> bool bool_eval (||)
   | And -> bool bool_eval (&&)
   | Eq -> bool eval (=)
   | Concat -> S (str_eval a ^ str_eval b)
-  | Drop -> S (String.slice ~first:(int_eval a) (str_eval b))
-  | Take -> S (String.slice ~last:(int_eval a) (str_eval b))
+  | Drop -> S (String.slice ~first:(Z.to_int @@ int_eval a) (str_eval b))
+  | Take -> S (String.slice ~last:(Z.to_int @@ int_eval a) (str_eval b))
   | Apply ->
     match eval a with
     | L (var, fn) -> eval @@ substitute fn var b (* call-by-name *)
@@ -188,7 +194,7 @@ let rec print' indent exp =
 let print = print' indent in
 match exp with
 | Bool b -> sprintf "%B" b
-| I n -> sprintf "%d" n
+| I n -> Z.to_string n
 | S s -> sprintf "%S" s
 | L (v,fn) -> sprintf "(\\v%d ->\n%s%s)" v (String.make indent ' ') (print' (indent + 2) fn)
 | V n -> sprintf "v%d" n

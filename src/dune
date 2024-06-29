@@ -2,6 +2,6 @@
 
 (executable
   (name main)
-  (libraries devkit extlib containers)
+  (libraries devkit extlib containers zarith)
   (preprocess (pps ppx_deriving.show))
 )

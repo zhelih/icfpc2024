@@ -76,8 +76,8 @@ let pretty pp t =
 let () =
   assert (encode @@ S "Hello World!" = "SB%,,/}Q/2,$_");
   assert (S "get index" = decode "S'%4}).$%8");
-  assert (I 1337 = decode "I/6");
-  assert (encode @@ I 1337 = "I/6");
+  assert (I (Z.of_int 1337) = decode "I/6");
+  assert (encode @@ I (Z.of_int 1337) = "I/6");
   Printexc.register_printer (function Failure s -> Some s | _ -> None);
   match Nix.args with
   | [] ->
@@ -87,6 +87,7 @@ let () =
   | "decode"::[] -> Std.input_all stdin |> String.trim |> decode |> pretty Lang.pp |> print_string
   | "eval"::[] -> Std.input_all stdin |> String.trim |> decode |> eval |> pretty Lang.pp |> print_string
   | "send_raw"::l -> print_endline @@ pretty Lang.pp @@ decode @@ raw_comm @@ encode @@ S (String.concat " " l)
+  | "send_3d"::file::l -> print_endline @@ expect_string @@ eval @@ decode @@ raw_comm @@ encode @@ S (String.concat " " l ^ "\n" ^ Std.input_file file)
   | "print_raw"::l -> print_endline @@ print @@ decode @@ raw_comm @@ encode @@ S (String.concat " " l)
   | "raw"::l -> print_endline @@ raw_comm @@ encode @@ S (String.concat " " l)
   | "send"::l -> print_endline @@ pretty Lang.pp @@ comm @@ String.concat " " l
