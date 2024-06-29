@@ -46,11 +46,11 @@ type t =
 let decode_int s = fst @@ String.fold_right (fun c (acc,exp) -> let c = Char.code c - 33 in Z.(of_int c * exp + acc), Z.(exp * Z.of_int 94)) s Z.(zero,one)
 let encode_int n =
   let rec encode acc n =
-    if n = 0 && acc <> [] then
+    if Z.equal n Z.zero && acc <> [] then
       String.of_seq @@ List.to_seq acc
     else
-      let c = Char.chr (n mod 94 + 33) in
-      encode (c::acc) (n / 94)
+      let c = Char.chr (Z.to_int Z.(rem n (of_int 94)) + 33) in
+      encode (c::acc) Z.(n / of_int 94)
   in
   encode [] n
 
@@ -129,7 +129,7 @@ let rec encode = function
   | If (c,a,b) -> sprintf "? %s %s %s" (encode c) (encode a) (encode b)
   | L _
   | V _ -> Exn.fail "todo"
-  | I n -> sprintf "I%s" (encode_int @@ Z.to_int n)
+  | I n -> sprintf "I%s" (encode_int n)
   | Neg x -> sprintf "U- %s" (encode x)
   | Not x -> sprintf "U! %s" (encode x)
   | Int_of_string x -> sprintf "U# %s" (encode x)
@@ -166,7 +166,7 @@ and eval = function
 | Neg a -> I (Z.neg @@ int_eval a)
 | Not a -> Bool (not @@ bool_eval a)
 | Int_of_string a -> I (decode_int @@ encode_string @@ str_eval a)
-| String_of_int a -> S (decode_string @@ encode_int @@ Z.to_int @@ int_eval a)
+| String_of_int a -> S (decode_string @@ encode_int @@ int_eval a)
 | If (c,a,b) -> if bool_eval c then eval a else eval b
 | B (op,a,b) ->
   let int e op = I (op (e a) (e b)) in
@@ -184,7 +184,7 @@ and eval = function
   | Eq -> bool eval (=)
   | Concat -> S (str_eval a ^ str_eval b)
   | Drop -> S (String.slice ~first:(Z.to_int @@ int_eval a) (str_eval b))
-  | Take -> S (String.slice ~last:(Z.to_int @@ int_eval a) (str_eval b))
+  | Take -> let s = (str_eval b) in print_char s.[0]; if Random.int 10 = 0 then flush stdout;  S (String.slice ~last:(Z.to_int @@ int_eval a) s)
   | Apply ->
     match eval a with
     | L (var, fn) -> eval @@ substitute fn var b (* call-by-name *)

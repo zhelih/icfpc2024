@@ -79,6 +79,7 @@ let () =
   assert (I (Z.of_int 1337) = decode "I/6");
   assert (encode @@ I (Z.of_int 1337) = "I/6");
   Printexc.register_printer (function Failure s -> Some s | _ -> None);
+(*   print_endline @@ encode @@ I (Z.of_string @@ Std.input_file "big.raw"); *)
   match Nix.args with
   | [] ->
     print_endline @@ expect_string @@ comm "get scoreboard";
