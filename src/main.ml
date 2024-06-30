@@ -92,7 +92,7 @@ let () =
   | "print_raw"::l -> print_endline @@ print @@ decode @@ raw_comm @@ encode @@ S (String.concat " " l)
   | "raw"::l -> print_endline @@ raw_comm @@ encode @@ S (String.concat " " l)
   | "send"::l -> print_endline @@ pretty Lang.pp @@ comm @@ String.concat " " l
-  | "get"::l -> print_endline @@ expect_string @@ comm @@ sprintf "get %s" (String.concat " " l)
+  | "get"::l -> print_endline (match comm @@ sprintf "get %s" (String.concat " " l) with S s -> s | x -> print x)
   | "solve"::task::[] -> solve true task
   | "try"::task::[] -> solve false task
   | _ ->

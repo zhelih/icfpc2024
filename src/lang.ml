@@ -177,7 +177,11 @@ and eval = function
   match op with
   | Plus -> int int_eval Z.add
   | Minus -> int int_eval Z.sub
-  | Mul -> int int_eval Z.mul
+  | Mul ->
+    begin match a, b with
+    | I n, _ | _, I n when Z.equal n Z.zero -> I Z.zero
+    | _ -> int int_eval Z.mul
+    end
   | Div ->
     let a = int_eval a in
     let b = int_eval b in
