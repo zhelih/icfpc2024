@@ -96,9 +96,11 @@ let () =
   | "eval"::[] -> Std.input_all stdin |> String.trim |> decode |> eval |> pretty Lang.pp |> print_endline
   | "send_raw"::l -> print_endline @@ pretty Lang.pp @@ decode @@ raw_comm @@ encode @@ S (String.concat " " l)
   | "send_3d"::file::l -> print_endline @@ expect_string @@ eval @@ decode @@ raw_comm @@ encode @@ S (String.concat " " l ^ "\n" ^ Std.input_file file)
-  | "parse_3d"::file::l ->
-    let (a,b) = match l with [] -> None, None | [a] -> Some (int_of_string a),None | [a;b] -> (Some (int_of_string a),Some (int_of_string b)) | _ -> assert false in
-    Trid.run_file ?a ?b file
+  | "trace_3d"::file::l ->
+    let (a,b) =
+      match l with [] -> None, None | [a] -> Some (int_of_string a),None | [a;b] -> (Some (int_of_string a),Some (int_of_string b)) | _ -> assert false
+    in
+    Trid.run_file ~trace:true ?a ?b file
   | "print_raw"::l -> print_endline @@ print @@ decode @@ raw_comm @@ encode @@ S (String.concat " " l)
   | "raw"::l -> print_string @@ raw_comm @@ encode @@ S (String.concat " " l)
   | "send"::l -> print_endline @@ pretty Lang.pp @@ comm @@ String.concat " " l
