@@ -3,15 +3,7 @@ open Lang
 
 let tee f x = f x; x
 
-let rec cbv = function
-| B (op,a,b) -> B ((if op = Apply then ApplyCBV else op),cbv a,cbv b)
-| S _ | Bool _ | I _ | V _ as x -> x
-| L (v,t) -> L (v,cbv t)
-| Neg x -> Neg (cbv x)
-| Not x -> Not (cbv x)
-| Int_of_string x -> Int_of_string (cbv x)
-| String_of_int x -> String_of_int (cbv x)
-| If (c,a,b) -> If (cbv c, cbv a, cbv b)
+let rec cbv = function B (Apply,a,b) -> B (ApplyCBV,cbv a, cbv b) | e -> map cbv e
 
 let fib n =
   let a = Array.make (n+1) 1 in

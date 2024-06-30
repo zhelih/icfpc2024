@@ -191,14 +191,26 @@ and eval = function
     if b = four then I (Z.shift_right a 2) else
     int int_eval Z.div
   | Mod ->
+    begin match b with
+    | I z when Z.equal Z.one z -> I Z.zero
+    | _ ->
     let a = int_eval a in
     let b = int_eval b in
     if b = four then I (Z.logand a three) else
     int int_eval Z.rem
+    end
   | LT -> bool int_eval (<)
   | GT -> bool int_eval (>)
-  | Or -> bool bool_eval (||)
-  | And -> bool bool_eval (&&)
+  | Or ->
+    begin match a, b with
+    | Bool true, _ | _, Bool true -> Bool true
+    | _ -> bool bool_eval (||)
+    end
+  | And ->
+    begin match a, b with
+    | Bool false, _ | _, Bool false -> Bool false
+    | _ -> bool bool_eval (&&)
+    end
   | Eq -> bool eval (=)
   | Concat -> S (str_eval a ^ str_eval b)
   | Drop -> S (String.slice ~first:(Z.to_int @@ int_eval a) (str_eval b))
@@ -246,3 +258,13 @@ match exp with
   ) (print a) (print b)
 
 let print = print' 2
+
+let map f = function
+| B (op,a,b) -> B (op,f a,f b)
+| S _ | Bool _ | I _ | V _ as x -> x
+| L (v,t) -> L (v,f t)
+| Neg x -> Neg (f x)
+| Not x -> Not (f x)
+| Int_of_string x -> Int_of_string (f x)
+| String_of_int x -> String_of_int (f x)
+| If (c,a,b) -> If (f c, f a, f b)
