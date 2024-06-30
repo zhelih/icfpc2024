@@ -9,10 +9,10 @@ run:
 clean:
 	dune clean
 
-task/lambdaman% task/spaceship% task/3d%:
+task/lambdaman% task/spaceship% task/3d% task/efficiency%:
 	if ./run get $(shell basename $@) > $@.tmp; then mv $@.tmp $@; else rm $@.tmp; fi
 
-tasks: $(foreach n,$(shell seq 1 21),task/lambdaman$n) $(foreach n,$(shell seq 1 25),task/spaceship$n) $(foreach n,$(shell seq 1 12),task/3d$n) index
+tasks: $(foreach n,$(shell seq 1 21),task/lambdaman$n) $(foreach n,$(shell seq 1 25),task/spaceship$n) $(foreach n,$(shell seq 1 12),task/3d$n) $(foreach n,$(shell seq 1 13),task/efficiency$n) index
 
 index:
 	./run get index > task/index
@@ -20,6 +20,7 @@ index:
 	./run get lambdaman > task/lambdaman
 	./run get spaceship > task/spaceship
 	./run get 3d > task/3d
+	./run get efficiency > task/efficiency
 
 solve_lambdaman:
 	for n in `seq 1 21`; do ./run solve task/lambdaman$$n; done
