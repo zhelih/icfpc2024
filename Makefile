@@ -9,8 +9,11 @@ run:
 clean:
 	dune clean
 
-task/lambdaman% task/spaceship% task/3d% task/efficiency%:
+task/lambdaman% task/spaceship% task/3d%:
 	if ./run get $(shell basename $@) > $@.tmp; then mv $@.tmp $@; else rm $@.tmp; fi
+
+task/efficiency%:
+	if ./run raw get $(shell basename $@) > $@.tmp; then mv $@.tmp $@; else rm $@.tmp; fi
 
 tasks: $(foreach n,$(shell seq 1 21),task/lambdaman$n) $(foreach n,$(shell seq 1 25),task/spaceship$n) $(foreach n,$(shell seq 1 12),task/3d$n) $(foreach n,$(shell seq 1 13),task/efficiency$n) index
 

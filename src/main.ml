@@ -4,6 +4,8 @@ open Devkit
 
 open Lang
 
+let tee f x = f x; x
+
 let token = "aba831d7-66ed-41d3-b757-fc719f5ad979"
 
 let raw_comm data =
@@ -27,9 +29,12 @@ let is_better ~task submission =
   let score = String.length submission in
   match Std.input_file (task ^ ".submission") with
   | exception _ ->
-    eprintfn "%s: new submission %d" task score;
+    eprintfn "%s: new submission (length %d)" task score;
     true
   | previous ->
+  if String.starts_with task "task/efficiency" then
+    previous <> submission |> tee (fun r -> if not r then eprintfn "%s: already submitted same answer" task)
+  else
     let previous = String.length previous in
     if score < previous then
     begin
@@ -45,6 +50,7 @@ let is_better ~task submission =
 let pick_solver = function
 | s when String.starts_with s "task/lambdaman" -> Lambdaman.solve
 | s when String.starts_with s "task/spaceship" -> Spaceship.solve
+| s when String.starts_with s "task/efficiency" -> Efficiency.solve
 | s -> Exn.fail "idk how to solve %s" s
 
 let solve submit task =
@@ -85,15 +91,16 @@ let () =
     print_endline @@ expect_string @@ comm "get scoreboard";
     print_endline @@ expect_string @@ comm "get index"
   | "encode"::[] -> Std.input_all stdin |> String.trim |> (fun s -> S s) |> encode |> print_string
-  | "decode"::[] -> Std.input_all stdin |> String.trim |> decode |> pretty Lang.pp |> print_string
-  | "eval"::[] -> Std.input_all stdin |> String.trim |> decode |> eval |> pretty Lang.pp |> print_string
+  | "decode"::[] -> Std.input_all stdin |> String.trim |> decode |> pretty Lang.pp |> print_endline
+  | "print"::[] -> Std.input_all stdin |> String.trim |> decode |> print |> print_endline
+  | "eval"::[] -> Std.input_all stdin |> String.trim |> decode |> eval |> pretty Lang.pp |> print_endline
   | "send_raw"::l -> print_endline @@ pretty Lang.pp @@ decode @@ raw_comm @@ encode @@ S (String.concat " " l)
   | "send_3d"::file::l -> print_endline @@ expect_string @@ eval @@ decode @@ raw_comm @@ encode @@ S (String.concat " " l ^ "\n" ^ Std.input_file file)
   | "parse_3d"::file::l ->
     let (a,b) = match l with [] -> None, None | [a] -> Some (int_of_string a),None | [a;b] -> (Some (int_of_string a),Some (int_of_string b)) | _ -> assert false in
     Trid.run_file ?a ?b file
   | "print_raw"::l -> print_endline @@ print @@ decode @@ raw_comm @@ encode @@ S (String.concat " " l)
-  | "raw"::l -> print_endline @@ raw_comm @@ encode @@ S (String.concat " " l)
+  | "raw"::l -> print_string @@ raw_comm @@ encode @@ S (String.concat " " l)
   | "send"::l -> print_endline @@ pretty Lang.pp @@ comm @@ String.concat " " l
   | "get"::l -> print_endline (match comm @@ sprintf "get %s" (String.concat " " l) with S s -> s | x -> print x)
   | "solve"::task::[] -> solve true task

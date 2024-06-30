@@ -19,6 +19,7 @@ type binop =
 | Eq
 | Concat
 | Apply
+| ApplyCBV
 | Drop
 | Take
 [@@deriving show {with_path=false}]
@@ -81,6 +82,7 @@ let rec decode next =
       | '=' -> Eq
       | '.' -> Concat
       | '$' -> Apply
+      | '!' -> ApplyCBV
       | 'D' -> Drop
       | 'T' -> Take
       | '*' -> Mul
@@ -112,6 +114,7 @@ let encode_binop = function
 | Eq -> '='
 | Concat -> '.'
 | Apply -> '$'
+| ApplyCBV -> '!'
 | Take -> 'T'
 | Drop -> 'D'
 | Mul -> '*'
@@ -201,9 +204,15 @@ and eval = function
   | Drop -> S (String.slice ~first:(Z.to_int @@ int_eval a) (str_eval b))
   | Take -> let s = (str_eval b) in print_char s.[0]; if Random.int 10 = 0 then flush stdout;  S (String.slice ~last:(Z.to_int @@ int_eval a) s)
   | Apply ->
-    match eval a with
+    begin match eval a with
     | L (var, fn) -> eval @@ substitute fn var b (* call-by-name *)
     | x -> type_error "lambda" x
+    end
+  | ApplyCBV ->
+    begin match eval a with
+    | L (var, fn) -> eval @@ substitute fn var (eval b)
+    | x -> type_error "lambda" x
+    end
 
 let rec print' indent exp =
 let print = print' indent in
@@ -231,7 +240,7 @@ match exp with
   | GT -> "(%s > %s)"
   | Eq -> "(%s = %s)"
   | Concat -> "(%s ^ %s)"
-  | Apply -> "(%s %s)"
+  | Apply | ApplyCBV -> "(%s %s)"
   | Drop -> "(drop %s %s)"
   | Take -> "(take %s %s)"
   ) (print a) (print b)
