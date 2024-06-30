@@ -1,9 +1,13 @@
+open Either
 open Printf
+open ExtLib
 open Devkit
 
 exception Finish of int
 exception Crash of string
 exception Terminated
+
+let crash fmt = ksprintf (fun s -> raise @@ Crash s) fmt
 
 type dir = U | D | L | R
 type binop = Add | Sub | Mul | Div | Rem
@@ -83,49 +87,80 @@ let show t =
 let print t = print_string @@ show t
 end
 
-let terminate (_:Grid.t) = raise Terminated
+let final = function [] -> crash "nothingness" | (_,g)::_ -> g
+let terminate (_:(int * Grid.t) list) = raise Terminated
 
-let tick ?(trace=false) t =
-  if trace then (Grid.print t; print_endline "");
+let tick ?(trace=false) past =
+  match past with
+  | [] -> assert false
+  | (time,t)::_ ->
+  if trace then (printfn "time %d:" time; Grid.print t; print_endline "");
   let next = Grid.copy t in
   let write = Grid.create () in
-  Grid.seq t |> Seq.filter_map begin fun (p,v) ->
+  let (ops,warps) = Grid.seq t |> Seq.filter_map begin fun (p,v) ->
     match v with
       | Empty -> assert false
       | Num _ -> None
       | Shift dir ->
         let opp = p ++ opposite dir in
-        begin match Grid.get t opp with Empty -> None | r -> Some ([opp], [p++dir, r]) end
+        begin match Grid.get t opp with Empty -> None | r -> some @@ Left ([opp], [p++dir, r]) end
       | Bin f ->
         begin match Grid.get t (p ++ L), Grid.get t (p ++ U) with
-        | Num a, Num b -> let r = Num (binop f a b) in Some ([p++L;p++U], [p++D,r; p++R,r])
+        | Num a, Num b -> let r = Num (binop f a b) in some @@ Left ([p++L;p++U], [p++D,r; p++R,r])
         | _ -> None
         end
       | Cmp f ->
         begin match Grid.get t (p ++ L), Grid.get t (p ++ U) with
         | Empty, _ | _, Empty -> None
-        | a, b -> if cmp f a b then Some ([p++L;p++U], [p++D,a; p++R,b]) else None
+        | a, b -> if cmp f a b then some @@ Left ([p++L;p++U], [p++D,a; p++R,b]) else None
         end
-      | Warp -> assert false
+      | Warp ->
+        begin match Grid.get t (p++L), Grid.get t (p++R), Grid.get t (p++D), Grid.get t (p++U) with
+        | Num dx, Num dy, Num dt, v when v <> Empty -> some @@ Right ((fst p - dx,snd p + dy), dt, v)
+        | _ -> None
+        end
       | Submit -> None
-    end
-    |> Seq.iter begin fun (r,w) ->
-      r |> List.iter (fun p -> Grid.set next p Empty);
-      w |> List.iter begin fun (p,v) ->
-        assert (v <> Empty);
-        match Grid.get next p, Grid.get write p with
-        | _, Empty -> Grid.set write p v
-        | Submit, other when other = v -> Grid.set write p v
-        | cur, other -> raise @@ Crash (sprintf "wrong write to %s (%s) : %s %s" (show_pos p) (show cur) (show v) (show other))
-     end
-    end;
+    end |> Seq.partition_map Fun.id
+  in
+  ops |> Seq.iter begin function (r,w) ->
+    r |> List.iter (fun p -> Grid.set next p Empty);
+    w |> List.iter begin fun (p,v) ->
+      assert (v <> Empty);
+      match Grid.get next p, Grid.get write p with
+      | _, Empty -> Grid.set write p v
+      | Submit, other when other = v -> Grid.set write p v
+      | cur, other -> crash "wrong write to %s (%s) : %s %s" (show_pos p) (show cur) (show v) (show other)
+   end
+  end;
   write |> Grid.seq |> Seq.iter begin fun (p,v) ->
     match Grid.get next p, v with
     | Submit, Num n -> raise @@ Finish n
-    | Submit, _ -> raise @@ Crash "can only submit numbers"
+    | Submit, _ -> crash "can only submit numbers"
     | _ -> Grid.set next p v
   end;
-  next
+  match List.of_seq warps with
+  | [] -> (time+1,next) :: past
+  | (_,dt,_):: _ as warps ->
+    if not @@ List.for_all (fun (_,dt',_) -> dt = dt') warps then crash "warping to different times";
+    assert (dt > 0);
+    match List.drop dt past with
+    | [] -> crash "warp beyond start of times"
+    | (time,grid)::past ->
+    let write = Grid.create () in
+    warps |> List.iter (fun (p,_,v) ->
+      assert (v <> Empty);
+      match Grid.get grid p, Grid.get write p with
+      | _, Empty -> Grid.set write p v
+      | _, other when other = v -> Grid.set write p v
+      | cur, other -> crash "wrong warp write to %s (%s) : %s %s" (show_pos p) (show cur) (show v) (show other)
+    );
+    write |> Grid.seq |> Seq.iter begin fun (p,v) ->
+      match Grid.get grid p, v with
+      | Submit, Num n -> raise @@ Finish n
+      | Submit, _ -> crash "can only submit numbers"
+      | _ -> Grid.set grid p v
+    end;
+    (time,grid) :: past
 
 let parse ?(a=7) ?(b=4) lines =
   let start = Grid.create () in
@@ -149,19 +184,19 @@ let parse ?(a=7) ?(b=4) lines =
 
 let run ?trace ?a ?b lines =
   try
-    Seq.ints 1_000_000 |> Seq.fold_left (fun g _ -> tick ?trace g) (parse ?a ?b lines) |> terminate
+    Seq.ints 1_000_000 |> Seq.fold_left (fun acc _ -> tick ?trace acc) [1,parse ?a ?b lines] |> terminate
   with Finish n -> printfn "Result: %d" n
 
 let run_file ?trace ?a ?b file = run ?trace ?a ?b @@ Action.file_lines_exn file
 
 let () =
   let test input expect =
-    let r = Grid.show @@ tick @@ parse input in
+    let r = Grid.show @@ final @@ tick [1, parse input] in
     let e = Grid.show @@ parse expect in
     if r <> e then Exn.fail "Expected\n%sbut got\n%s" e r
   in
   let fail input =
-    try terminate @@ tick @@ parse input with Crash _ -> ()
+    try terminate @@ tick [1, parse input] with Crash _ -> ()
   in
   fail ["3 > . < 3"];
   test [". < 3 > ."] ["3 < . > 3"];
