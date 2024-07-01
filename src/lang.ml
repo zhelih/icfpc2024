@@ -133,8 +133,8 @@ let rec encode = function
   | Bool true -> "T"
   | Bool false -> "F"
   | If (c,a,b) -> sprintf "? %s %s %s" (encode c) (encode a) (encode b)
-  | L _
-  | V _ -> Exn.fail "todo"
+  | L (v,b) -> sprintf "L%s %s" (encode_int @@ Z.of_int v) (encode b)
+  | V n -> sprintf "v%s" (encode_int @@ Z.of_int n)
   | I n -> sprintf "I%s" (encode_int n)
   | Neg x -> sprintf "U- %s" (encode x)
   | Not x -> sprintf "U! %s" (encode x)

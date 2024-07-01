@@ -5,6 +5,7 @@ open Devkit
 open Lang
 
 let tee f x = f x; x
+(* let pee _ x = x *)
 
 let token = "aba831d7-66ed-41d3-b757-fc719f5ad979"
 
@@ -53,11 +54,39 @@ let pick_solver = function
 | s when String.starts_with s "task/efficiency" -> Efficiency.solve
 | s -> Exn.fail "idk how to solve %s" s
 
+let encode_dict_string limit s =
+  let cur = ref s.[0] in
+  let n = ref 0 in
+  let h = Hashtbl.create 10 in
+  let store c n =
+    let k = String.make n c in
+    Hashtbl.replace h k (Hashtbl.find_default h k 0 + 1)
+  in
+  let dict = s |> String.iter (fun c -> if c = !cur then incr n; if !n = limit then store !cur !n; if c <> !cur || !n = limit then (cur := c; n := 1));
+  Hashtbl.to_seq h
+(*   |> Seq.filter (fun (s,_) -> String.length s > 10) *)
+  |> List.of_seq
+(*   |> List.sort ~cmp:(fun (_,n1) (_,n2) -> compare n2 n1) |> List.take 10 *)
+  |> tee (List.iter (fun (s,n) -> printfn "%d %s" n s))
+  |> tee (fun _ -> print_newline ())
+  |> List.mapi (fun i (s,_) -> i,s)
+  in
+  let body =
+    List.fold_left (fun body (i,sub) ->
+      body
+      |> List.map (function S s -> String.nsplit s sub |> List.map (fun s -> S s) |> CCList.intersperse (V i) |> List.filter (fun x -> x <> S"")  | x -> [x])
+      |> List.concat) [S s] dict |> List.rev
+  in
+  let body = CCList.reduce_exn (fun acc x -> B(Concat,x,acc)) body in
+  encode @@ List.fold_left (fun acc (i,sub) -> B(Apply,L(i,acc),S sub)) body dict
+
+let encode_dict_string s =
+  List.init 20 (fun i -> encode_dict_string (10 + i) s) |> CCList.reduce_exn (fun acc s -> if String.length acc < String.length s then acc else s)
+
 let solve submit task =
   let solver = pick_solver task in
   let solution = solver task in
-  (* TODO encode smarter *)
-  let submission = encode @@ S (sprintf "solve %s %s" (Filename.basename task) solution) in
+  let submission = encode_dict_string (sprintf "solve %s %s" (Filename.basename task) solution) in
   match submit with
   | false ->
     let (_:bool) = is_better ~task submission in
@@ -84,6 +113,7 @@ let () =
   assert (S "get index" = decode "S'%4}).$%8");
   assert (I (Z.of_int 1337) = decode "I/6");
   assert (encode @@ I (Z.of_int 1337) = "I/6");
+(*   print_endline @@ tee (print_endline $ expect_string $ eval $ decode) @@ encode @@ tee (print_endline $ print) @@ dict_string @@ tee print_endline @@ "AAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBB"; *)
   Printexc.register_printer (function Failure s -> Some s | _ -> None);
 (*   print_endline @@ encode @@ I (Z.of_string @@ Std.input_file "big.raw"); *)
   match Nix.args with
