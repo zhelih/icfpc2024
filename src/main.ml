@@ -5,7 +5,7 @@ open Devkit
 open Lang
 
 let tee f x = f x; x
-(* let pee _ x = x *)
+let pee _ x = x
 
 let token = "aba831d7-66ed-41d3-b757-fc719f5ad979"
 
@@ -55,20 +55,18 @@ let pick_solver = function
 | s -> Exn.fail "idk how to solve %s" s
 
 let encode_dict_string limit s =
-  let cur = ref s.[0] in
-  let n = ref 0 in
   let h = Hashtbl.create 10 in
-  let store c n =
-    let k = String.make n c in
+  for i = 0 to String.length s - limit do
+    let k = String.sub s i limit in
     Hashtbl.replace h k (Hashtbl.find_default h k 0 + 1)
-  in
-  let dict = s |> String.iter (fun c -> if c = !cur then incr n; if !n = limit then store !cur !n; if c <> !cur || !n = limit then (cur := c; n := 1));
+  done;
+  let dict =
   Hashtbl.to_seq h
-(*   |> Seq.filter (fun (s,_) -> String.length s > 10) *)
+  |> Seq.filter (fun (_,n) -> n > 4)
   |> List.of_seq
-(*   |> List.sort ~cmp:(fun (_,n1) (_,n2) -> compare n2 n1) |> List.take 10 *)
-  |> tee (List.iter (fun (s,n) -> printfn "%d %s" n s))
-  |> tee (fun _ -> print_newline ())
+  |> List.sort ~cmp:(fun (_,n1) (_,n2) -> compare n2 n1) |> List.take 10
+  |> pee (List.iter (fun (s,n) -> printfn "%d %s" n s))
+  |> pee (fun _ -> print_newline ())
   |> List.mapi (fun i (s,_) -> i,s)
   in
   let body =
@@ -81,7 +79,7 @@ let encode_dict_string limit s =
   encode @@ List.fold_left (fun acc (i,sub) -> B(Apply,L(i,acc),S sub)) body dict
 
 let encode_dict_string s =
-  List.init 20 (fun i -> encode_dict_string (10 + i) s) |> CCList.reduce_exn (fun acc s -> if String.length acc < String.length s then acc else s)
+  List.init 32 (fun i -> encode_dict_string (8 + i) s) |> CCList.reduce_exn (fun acc s -> if String.length acc < String.length s then acc else s)
 
 let solve submit task =
   let solver = pick_solver task in
