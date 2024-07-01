@@ -202,18 +202,18 @@ When running this for `A = 3` and `B = 4`, this program has a spacetime volume o
 
 The following problems are available:
 
-* [3d1] Best score: 2982.
-* [3d2] Your score: 2940. Best score: 1920.
-* [3d3] Your score: 1840. Best score: 1314.
-* [3d4] Your score: 27378. Best score: 2080.
-* [3d5] Best score: 3456.
-* [3d6] Best score: 3840.
-* [3d7] Best score: 8640.
-* [3d8] Best score: 43680.
-* [3d9] Best score: 17545.
+* [3d1] Your score: 49060. Best score: 2982.
+* [3d2] Your score: 2940. Best score: 1500.
+* [3d3] Your score: 1840. Best score: 1225.
+* [3d4] Your score: 27378. Best score: 1872.
+* [3d5] Your score: 57600. Best score: 3024.
+* [3d6] Your score: 13266. Best score: 3200.
+* [3d7] Best score: 7290.
+* [3d8] Best score: 31824.
+* [3d9] Best score: 12760.
 * [3d10] Best score: 40261.
-* [3d11] Best score: 182091.
-* [3d12] Best score: 64260.
+* [3d11] Best score: 66792.
+* [3d12] Best score: 21978.
 
 To submit a solution, send an ICFP expression that evaluates to `solve 3dX` followed by your 3D program, e.g.:
 

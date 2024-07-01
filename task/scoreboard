@@ -1,441 +1,471 @@
 | # | team | hello | lambdaman | spaceship | 3d | efficiency |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | B$ L$ B$ v$ v$ L$ B$ v$ v$ | 1 | 1 | 5 | 2 | 1 |
-| 2 | Unagi | 1 | 6 | 2 | 1 | 1 |
-| 3 | Purely Functional Networks | 1 | 2 | 1 | 9 | 1 |
-| 4 | manarimo | 1 | 12 | 3 | 3 | 1 |
-| 5 | Heuristic Artis | 1 | 8 | 4 | 7 | 1 |
-| 6 | Snakes, Monkeys, and Two Smoking Lambdas | 1 | 7 | 6 | 13 | 1 |
-| 7 | Pigimarl | 1 | 4 | 24 | 6 | 1 |
-| 7 | RGBTeam | 1 | 9 | 10 | 15 | 1 |
-| 9 | DiamondPrincess | 1 | 5 | 12 | 19 | 1 |
-| 9 | Spica | 1 | 15 | 11 | 10 | 1 |
-| 11 | LogicLynx | 1 | 27 | 7 | 11 | 1 |
-| 12 | ?? ???? | 1 | 29 | 13 | 16 | 1 |
-| 13 | topcoder_is_dead | 1 | 33 | 9 | 14 | 26 |
-| 14 | jabber.ru | 1 | 51 | 14 | 5 | 1 |
-| 15 | udfew | 1 | 19 | 26 | 17 | 35 |
-| 16 | TBD | 1 | 16 | 17 | 32 | 31 |
-| 17 | Jumbo Chicken | 1 | 20 | 18 | 23 | 38 |
-| 17 | The Cat is #1!! | 1 | 14 | 29 | 23 | 31 |
-| 19 | chirijako | 1 | 31 | 25 | 18 | 26 |
-| 20 | ??? | 1 | 13 | 39 | 29 | 1 |
-| 21 | piggyhack | 1 | 21 | 38 | 25 | 1 |
-| 21 | powder | 1 | 11 | 45 | 28 | 1 |
-| 23 | TSG | 1 | 34 | 20 | 31 | 29 |
-| 24 | pegovka | 1 | 38 | 36 | 21 | 1 |
-| 25 | code-o-matic | 1 | 25 | 35 | 27 | 31 |
-| 26 | Gon The Fox | 1 | 28 | 47 | 33 | 1 |
-| 27 | The Blind Hen | 1 | 23 | 16 | 62 | 31 |
-| 28 | Cult of the Bound Variable | 1 | 17 | 67 | 30 | 1 |
-| 29 | Panicked Albatross | 1 | 41 | 37 | 22 | 40 |
-| 30 | Raging Mushrooms | 1 | 18 | 31 | 54 | 38 |
-| 31 | Olympia | 1 | 35 | 61 | 4 | 44 |
-| 32 | negainoido | 1 | 55 | 46 | 26 | 1 |
-| 33 | THIRTEEN | 1 | 36 | 57 | 50 | 1 |
-| 34 | hikkash | 1 | 37 | 28 | 53 | 48 |
-| 35 | sonna*baka*na | 1 | 43 | 27 | 35 | 60 |
-| 36 | Zebra Infused Hamsters | 1 | 30 | 22 | 57 | 60 |
-| 36 | A Storm of Minds | 1 | 53 | 69 | 12 | 42 |
-| 38 | LILiK | 1 | 39 | 44 | 36 | 53 |
-| 39 | toomer | 1 | 66 | 33 | 46 | 35 |
-| 40 | mipt.lambda | 1 | 40 | 64 | 59 | 1 |
-| 41 | hirosegolf | 1 | 42 | 48 | 56 | 53 |
-| 42 | kamirulez! | 1 | 44 | 23 | 43 | 84 |
-| 43 | yorofuwa | 1 | 64 | 21 | 68 | 53 |
-| 44 | radeye | 1 | 47 | 34 | 40 | 84 |
-| 45 | Perpetuum Mobile | 1 | 32 | 58 | 65 | 60 |
-| 46 | 46 TiB | 1 | 79 | 15 | 38 | 84 |
-| 47 | tsickle | 1 | 54 | 81 | 72 | 26 |
-| 48 | wheezards | 1 | 49 | 82 | 73 | 41 |
-| 49 | Lamda Quakens | 1 | 70 | 65 | 61 | 48 |
-| 50 | Kirby's Star Allies | 1 | 86 | 53 | 47 | 60 |
-| 51 | Ty chyo pyos? | 1 | 107 | 92 | 41 | 25 |
-| 51 | lambda-llama | 1 | 61 | 88 | 79 | 37 |
-| 53 | Leaf Pie | 1 | 91 | 115 | 39 | 1 |
-| 54 | Gobelet | 1 | 60 | 91 | 78 | 48 |
-| **55** | ****dysfunctional** | **piglets**** | **161** | **81** | **78** | **52** | **60** |
-| 56 | Forthissimo | 1 | 75 | 59 | 54 | 84 |
-| 57 | Turing Machinists | 1 | 125 | 74 | 37 | 53 |
-| 58 | undercut | 1 | 88 | 79 | 51 | 74 |
-| 58 | shinh | 1 | 105 | 117 | 8 | 60 |
-| 60 | WILD BASHKORT MAGES | 1 | 131 | 19 | 58 | 84 |
-| 61 | irori | 1 | 130 | 95 | 60 | 45 |
-| 62 | sanma | 1 | 108 | 96 | 44 | 84 |
-| 63 | OMGICFPFTW | 1 | 103 | 110 | 48 | 84 |
-| 64 | tmd | 1 | 127 | 109 | 75 | 84 |
-| 65 | Cup<T> | 1 | 151 | 119 | 81 | 84 |
-| 66 | sushi-gakushi | 1 | 116 | 139 | 64 | 84 |
-| 67 | kumanomi | 1 | 57 | 49 | 33 |  |
-| 68 | codingteam | 1 | 24 | 66 |  | 48 |
-| 69 | ilikerice | 1 | 62 | 32 |  | 53 |
-| 70 | Nixie Tubes | 1 | 46 | 42 | 76 |  |
-| 71 | Bottle kids! | 1 | 22 | 97 |  | 53 |
-| 72 | Team Sampou | 1 | 48 | 68 |  | 60 |
-| 73 | KMC | 166 | 132 | 123 | 77 | 84 |
-| 74 | TCPC | 1 | 83 | 70 | 45 |  |
-| 75 | sjoerd_visscher | 1 | 59 | 85 |  | 60 |
-| 75 | brbrbrbrfr | 1 | 52 | 80 | 80 |  |
-| 77 | locally constant | 1 | 66 | 51 |  | 84 |
-| 77 | 0A | 1 | 87 | 84 |  | 45 |
-| 79 | tomerun | 1 | 10 | 139 |  | 42 |
-| 80 | Dare Ludum | 1 | 78 | 73 |  | 81 |
-| 81 | Limiting Factor | 1 | 68 | 99 |  | 74 |
-| 82 | pointless | 1 | 50 | 105 |  | 84 |
-| 83 | Croco (discord&twitter must die) | 1 | 56 | 134 | 66 |  |
-| 84 | Maximum | 1 | 80 | 103 | 73 |  |
-| 85 | 910z | 1 | 139 | 55 | 70 |  |
-| 86 | Channable & Friends | 1 | 45 | 121 |  | 84 |
-| 87 | O Caml My Caml | 1 | 121 | 114 | 49 |  |
-| 87 | killswitch | 1 | 84 | 116 |  | 81 |
-| 89 | cashto | 1 | 123 | 94 |  | 70 |
-| 90 | Ateam | 166 | 96 | 83 | 42 |  |
-| 91 | idkjava | 1 | 163 | 129 |  | 1 |
-| 92 | PLRG :: Bristol | 1 | 174 | 86 |  | 53 |
-| 93 | sh | 1 | 98 | 139 |  | 69 |
-| 94 | tipstar0125 | 1 | 74 | 139 |  | 84 |
-| 95 | JumpingJaguar | 1 | 194 | 125 |  | 30 |
-| 96 | GrinGene | 166 | 133 | 100 |  | 72 |
-| 97 | Frictionless Bananas | 1 | 3 |  | 67 |  |
-| 98 | UA_paiv | 1 | 136 | 139 |  | 84 |
-| 99 | Sabae no Applicative Functor | 1 | 208 | 135 |  | 48 |
-| 100 | s1mahoeg | 166 | 189 | 90 | 63 |  |
-| 101 | Team Meh | 1 | 71 | 30 |  |  |
-| 102 | skermes | 163 | 176 | 139 |  | 70 |
-| 103 | poyo | 1 | 176 | 139 |  | 81 |
-| 104 | xfold | 1 | 110 | 8 |  |  |
-| 105 | Levinski | 1 | 65 | 62 |  |  |
-| 106 | Lama | 1 | 26 | 107 |  |  |
-| 107 | mj | 1 | 104 | 40 |  |  |
-| 108 | taxidriver | 1 | 58 | 98 |  |  |
-| 109 | Sunspear | 1 | 122 | 41 |  |  |
-| 110 | Side Effects May Include... | 1 | 89 | 75 |  |  |
-| 111 | Sayang <3 | 1 | 118 | 56 |  |  |
-| 112 | cipher | 1 | 106 | 71 |  |  |
-| 113 | miniBill | 1 |  | 108 |  | 74 |
-| 114 | uguu.org | 1 | 72 | 122 |  |  |
-| 115 | Helicoidal Bytecode | 1 | 137 |  |  | 60 |
-| 116 | Better, late, then never | 1 | 138 |  |  | 74 |
-| 117 | Dimetrodon | 1 | 146 | 76 |  |  |
-| 118 | ??? | 1 | 90 | 131 |  |  |
-| 119 | Lyrical Tokarev | 1 | 95 | 131 |  |  |
-| 120 | glua.team | 166 | 97 | 50 |  |  |
-| 121 | OpenMasters | 166 | 94 | 54 |  |  |
-| 122 | Massive force to give up | 161 | 156 |  |  | 74 |
-| 123 | tratata | 166 | 69 | 93 |  |  |
-| 124 | Rogue Operations | 166 | 111 | 52 |  |  |
-| 125 | cw | 1 | 81 | 139 |  |  |
-| 126 | Intrepid Investigator | 1 | 175 |  |  | 74 |
-| 127 | Junkfood | 1 | 153 | 104 |  |  |
-| 128 | Invisible Imp | 1 | 189 |  | 71 |  |
-| 129 | Rick Zapor | 166 | 115 | 60 |  |  |
-| 130 | masataka | 1 | 158 | 113 |  |  |
-| 130 | shim0 | 1 | 141 | 130 |  |  |
-| 132 | pandaT | 1 | 100 | 139 |  |  |
-| 132 | Sihl++ | 1 | 192 |  |  | 74 |
-| 134 | R22b | 166 | 92 | 102 |  |  |
-| 135 | Pi | 166 | 77 | 120 |  |  |
-| 136 | wendigogo | 247 | 102 | 87 |  |  |
-| 137 | yowa | 1 | 176 | 101 |  |  |
-| 138 | Slow | 166 | 126 | 77 |  |  |
-| 138 | lambdametal | 1 | 152 | 138 |  |  |
-| 138 | yupiteru | 1 | 162 | 125 |  |  |
-| 141 | Human Instrumentality Project | 1 | 208 |  |  | 73 |
-| 142 | Pech1 | 1 | 128 | 139 |  |  |
-| 143 | goto11 | 166 | 114 | 106 |  |  |
-| 144 | Team Solo Mec | 1 | 144 | 139 |  |  |
-| 144 | Lamb-duh | 166 | 157 | 72 |  |  |
-| 146 | Dis Functional | 1 | 194 | 118 |  |  |
-| 147 | Drmk | 166 | 63 | 139 |  |  |
-| 148 | Undecidable | 1 | 154 | 174 |  |  |
-| 149 | igusarov | 166 | 73 | 139 |  |  |
-| 150 | optima | 1 | 208 | 111 |  |  |
-| 150 | unsatcore | 1 | 164 | 139 |  |  |
-| 152 | meanmate | 274 | 99 |  | 69 |  |
-| 153 | NetworkNinjas | 166 | 134 | 125 |  |  |
-| 154 | ush | 1 |  |  | 20 |  |
-| 155 | Pure Laziness | 166 | 208 | 43 |  |  |
-| 156 | Tusan | 1 | 176 | 139 |  |  |
-| 156 | sash | 1 | 176 | 139 |  |  |
-| 158 | UnlikelyToSucceed | 166 | 145 | 131 |  |  |
-| 159 | C64 | 247 | 173 |  |  | 84 |
-| 160 | Lambgaga | 1 | 194 | 139 |  |  |
-| 161 | Task Manager (Not Responding) | 163 |  |  |  | 45 |
-| 162 | Sigmoid Freud | 166 | 170 | 135 |  |  |
-| 163 | help | 1 | 208 | 139 |  |  |
-| 164 | camel_case | 1 | 208 | 175 |  |  |
-| 165 | nesinboh | 256 | 150 | 137 |  |  |
-| 166 | DNIWE :: a | 166 | 229 | 89 |  |  |
-| 167 | xyz600 | 1 | 76 |  |  |  |
-| 168 | Serpens Viridis | 166 | 155 | 139 |  |  |
-| 169 | Dr0ne | 1 | 84 |  |  |  |
-| 170 | FunctionalPerls | 166 | 194 | 125 |  |  |
-| 171 | naminoneiro | 166 | 159 | 139 |  |  |
-| 172 | ;Unbound variable: teamname | 166 | 160 | 139 |  |  |
-| 173 | CamYarra | 166 | 168 | 139 |  |  |
-| 174 | takus | 166 | 171 | 139 |  |  |
-| 175 | zfhrp | 166 | 172 | 139 |  |  |
-| 176 | Pure Laziness (backup account) | 166 | 208 | 124 |  |  |
-| 177 | uneu.net | 1 | 113 |  |  |  |
-| 178 | OxBox | 166 | 176 | 139 |  |  |
-| 178 | DePauw with a W | 166 | 176 | 139 |  |  |
-| 180 | Prof Prog | 1 | 124 |  |  |  |
-| 181 | jm | 1 | 129 |  |  |  |
-| 182 | Xeniac | 166 | 194 | 139 |  |  |
-| 183 | tryhard | 247 | 203 | 139 |  |  |
-| 184 | janiczek | 1 | 142 |  |  |  |
-| 185 | Waterloo Napoleons | 1 | 147 |  |  |  |
-| 186 | ToastUz | 1 | 148 |  |  |  |
-| 187 | ishmeal | 1 | 149 |  |  |  |
-| 188 | Canivsar | 166 |  | 63 |  |  |
-| 189 | Sumedh Girish | 166 | 208 | 139 |  |  |
-| 189 | N?rke Nation | 166 | 208 | 139 |  |  |
-| 189 | samayou_kaede | 166 | 208 | 139 |  |  |
-| 192 | sbite0138 | 166 | 226 | 139 |  |  |
-| 193 | monoid | 166 | 228 | 173 |  |  |
-| 194 | gdb | 1 | 160 |  |  |  |
-| 195 | Crownfall Crew | 1 |  | 139 |  |  |
-| 196 | gaha | 166 | 93 |  |  |  |
-| 196 | FIRQ | 256 | 208 | 139 |  |  |
-| 198 | insert team name here | 1 | 176 |  |  |  |
-| 198 | Pi | 166 | 101 |  |  |  |
-| 198 | Leg of Lambda | 1 | 176 |  |  |  |
-| 201 | hayato | 166 | 112 |  |  |  |
-| 201 | theta | 166 |  | 112 |  |  |
-| 203 | almosthere | 1 | 194 |  |  |  |
-| 204 | LoneBot | 166 | 117 |  |  |  |
-| 205 | Pseudo  | 166 | 119 |  |  |  |
-| 206 | DavidB | 166 | 120 |  |  |  |
-| 207 | unsafePerform.IO | 163 | 206 |  |  |  |
-| 208 | keles | 166 | 135 |  |  |  |
-| 209 | just_me | 256 | 109 |  |  |  |
-| 210 | sanityinc | 1 | 208 |  |  |  |
-| 211 | Apprentice | 166 | 140 |  |  |  |
-| 212 | peterm | 166 | 143 |  |  |  |
-| 213 | Bue World | 166 | 166 |  |  |  |
-| 214 | FCCPC | 166 | 169 |  |  |  |
-| 215 | ai | 166 | 176 |  |  |  |
-| 216 | Kaos | 256 | 165 |  |  |  |
-| 217 | I-M-X | 166 | 193 |  |  |  |
-| 218 | Mimir's k?lla | 256 | 166 |  |  |  |
-| 219 | Whoknows | 166 | 194 |  |  |  |
-| 219 | wolfadex | 166 | 194 |  |  |  |
-| 221 | corylopsis | 166 | 203 |  |  |  |
-| 222 | CoderMal | 166 | 205 |  |  |  |
-| 223 | fp[uk] | 166 | 206 |  |  |  |
-| 224 | Distracted Corvids | 256 | 176 |  |  |  |
-| 224 | Lexi | 256 | 176 |  |  |  |
-| 226 | NasconDini | 256 | 191 |  |  |  |
-| 227 | SPAAACE | 166 | 208 |  |  |  |
-| 227 | the-bam | 166 | 208 |  |  |  |
-| 227 | ShadySharingan | 166 | 208 |  |  |  |
-| 230 | Codice Loco ( ?? ?? ??) | 166 | 226 |  |  |  |
-| 231 | Affliction | 256 | 194 |  |  |  |
-| 232 | Ground Truth | 247 | 208 |  |  |  |
-| 233 | Mosa Fett | 1 |  |  |  |  |
-| 233 | Docet Omnia | 1 |  |  |  |  |
-| 233 | h4 | 1 |  |  |  |  |
-| 233 | 3b | 1 |  |  |  |  |
-| 233 | 3GjcVykuxyD82HE | 1 |  |  |  |  |
-| 233 | xiberfix | 1 |  |  |  |  |
-| 233 | uta | 1 |  |  |  |  |
-| 240 | The Higher Order Of Zeuxis | 160 |  |  |  |  |
-| 241 | turbolent | 256 | 208 |  |  |  |
-| 242 | ???? | 274 | 176 |  |  |  |
-| 243 | MangoPeeled | 274 | 208 |  |  |  |
-| 244 | eggy | 166 |  |  |  |  |
-| 244 | Dysfunction | 166 |  |  |  |  |
-| 244 | TerrorBytes | 166 |  |  |  |  |
-| 244 | suicide | 166 |  |  |  |  |
-| 244 | XLERB | 166 |  |  |  |  |
-| 244 | TeamTeam | 166 |  |  |  |  |
-| 244 | Snowbot Brigade | 166 |  |  |  |  |
-| 244 | Rasengan | 166 |  |  |  |  |
-| 244 | Sha90w | 166 |  |  |  |  |
-| 244 | fantastic-couscous | 166 |  |  |  |  |
-| 244 | 7999f27ae4db | 166 |  |  |  |  |
-| 244 | Lambda Collective | 166 |  |  |  |  |
-| 244 | N0BML | 166 |  |  |  |  |
-| 244 | ThinkWithGames | 166 |  |  |  |  |
-| 244 | Isaac Clarke | 166 |  |  |  |  |
-| 244 | 4eta | 166 |  |  |  |  |
-| 244 | Various slide rules | 166 |  |  |  |  |
-| 244 | Freddy Pringle | 166 |  |  |  |  |
-| 244 | h4rr9 | 166 |  |  |  |  |
-| 244 | botrevenge | 166 |  |  |  |  |
-| 264 | treedub | 247 |  |  |  |  |
-| 264 | p-coder | 247 |  |  |  |  |
-| 264 | Keksfreunde | 247 |  |  |  |  |
-| 264 | a | 247 |  |  |  |  |
-| 264 | TS_TCPC | 247 |  |  |  |  |
-| 269 | Play Dominion, now on Steam, Apple or Google Play | 256 |  |  |  |  |
-| 269 | balonit_bros | 256 |  |  |  |  |
-| 269 | speakerteeth | 256 |  |  |  |  |
-| 269 | hk | 256 |  |  |  |  |
-| 269 | mcpony | 256 |  |  |  |  |
-| 269 | azak | 256 |  |  |  |  |
-| 269 | Golden Middle | 256 |  |  |  |  |
-| 269 | poka | 256 |  |  |  |  |
-| 277 | matmis | 274 |  |  |  |  |
-| 277 | EvbCFfp1XB | 274 |  |  |  |  |
-| 277 | scanhex | 274 |  |  |  |  |
-| 277 | tsickle | 274 |  |  |  |  |
-| 277 | Flat Earth Society - Jovian Chapter | 274 |  |  |  |  |
-| 277 | Hacksell | 274 |  |  |  |  |
-| 277 | GeriatricCoder | 274 |  |  |  |  |
-| 277 | TerrorBytes | 274 |  |  |  |  |
-| 277 | Sigmoid Freud | 274 |  |  |  |  |
-| 277 | Gobelet | 274 |  |  |  |  |
-| 277 | Man with a minivan | 274 |  |  |  |  |
-| 277 | Q | 274 |  |  |  |  |
-| 277 | dfyz | 274 |  |  |  |  |
-| 277 | woo hou feng | 274 |  |  |  |  |
-| 277 | Zarief's Team | 274 |  |  |  |  |
-| 277 | Isaq | 274 |  |  |  |  |
-| 277 | Kashell | 274 |  |  |  |  |
-| 277 | szn | 274 |  |  |  |  |
-| 277 | Nolan | 274 |  |  |  |  |
-| 277 | Briareos | 274 |  |  |  |  |
-| 277 | team | 274 |  |  |  |  |
-| 277 | cyberecho | 274 |  |  |  |  |
-| 277 | g7r | 274 |  |  |  |  |
-| 277 | Bowlerinas | 274 |  |  |  |  |
-| 277 | Heklers @ < 16% | 274 |  |  |  |  |
-| 277 | Nicolas van Kempen | 274 |  |  |  |  |
-| 277 | juu_me_myself_I | 274 |  |  |  |  |
-| 277 | kakira | 274 |  |  |  |  |
-| 277 | skullgang | 274 |  |  |  |  |
-| 277 | no-team | 274 |  |  |  |  |
-| 277 | Cail_Team | 274 |  |  |  |  |
-| 277 | spid2007 | 274 |  |  |  |  |
-| 277 | Blue Iris | 274 |  |  |  |  |
-| 277 | Now Loading... | 274 |  |  |  |  |
-| 277 | winterfell | 274 |  |  |  |  |
-| 277 | Stochastic Pretzels | 274 |  |  |  |  |
-| 277 | bscii | 274 |  |  |  |  |
-| 277 | farwah | 274 |  |  |  |  |
-| 277 | ? | 274 |  |  |  |  |
-| 277 | quoc28 | 274 |  |  |  |  |
-| 277 | DEIN | 274 |  |  |  |  |
-| 277 | sushi-gakushi | 274 |  |  |  |  |
-| 277 | TurtlePU | 274 |  |  |  |  |
-| 277 | Aqqrs | 274 |  |  |  |  |
-| 277 | cleanlean | 274 |  |  |  |  |
-| 277 | Scr4peR | 274 |  |  |  |  |
-| 277 | Typeclass Without Laws | 274 |  |  |  |  |
-| 277 | Fixed but mostly pointless | 274 |  |  |  |  |
-| 277 | mmohammadi9812 | 274 |  |  |  |  |
-| 277 | yosupo | 274 |  |  |  |  |
-| 277 | ()-age | 274 |  |  |  |  |
-| 277 | lotren | 274 |  |  |  |  |
-| 277 | gummycandy | 274 |  |  |  |  |
-| 277 | awawa | 274 |  |  |  |  |
-| 277 | Luke & Hamish | 274 |  |  |  |  |
-| 332 | The Old Man and the C |  |  |  |  |  |
-| 332 | Hollow Purple |  |  |  |  |  |
-| 332 | D Yang |  |  |  |  |  |
-| 332 | LLAMACHAIN |  |  |  |  |  |
-| 332 | null |  |  |  |  |  |
-| 332 | F47 |  |  |  |  |  |
-| 332 | maron8676 |  |  |  |  |  |
-| 332 | Team AK |  |  |  |  |  |
-| 332 | hustlers |  |  |  |  |  |
-| 332 | SoloQueue |  |  |  |  |  |
-| 332 | Fantastic 4 |  |  |  |  |  |
-| 332 | Slasher |  |  |  |  |  |
-| 332 | Dynamo |  |  |  |  |  |
-| 332 | Codehunters |  |  |  |  |  |
-| 332 | jonathanprogramming |  |  |  |  |  |
-| 332 | DarkKnignt |  |  |  |  |  |
-| 332 | plan arado |  |  |  |  |  |
-| 332 | ateam |  |  |  |  |  |
-| 332 | ateam |  |  |  |  |  |
-| 332 | aaaa |  |  |  |  |  |
-| 332 | GRARIO |  |  |  |  |  |
-| 332 | Miracle |  |  |  |  |  |
-| 332 | Want To Delete This Account |  |  |  |  |  |
-| 332 | solo rank |  |  |  |  |  |
-| 332 | ? |  |  |  |  |  |
-| 332 | V |  |  |  |  |  |
-| 332 | InKryptz |  |  |  |  |  |
-| 332 | swayingfish |  |  |  |  |  |
-| 332 | One-Pass Gang |  |  |  |  |  |
-| 332 | beginner |  |  |  |  |  |
-| 332 | random_team |  |  |  |  |  |
-| 332 | ToiToi |  |  |  |  |  |
-| 332 | Gassa |  |  |  |  |  |
-| 332 | blueboar's team |  |  |  |  |  |
-| 332 | Ace_yuki |  |  |  |  |  |
-| 332 | AAV2024 |  |  |  |  |  |
-| 332 | The Marauder |  |  |  |  |  |
-| 332 | 0xValhalla |  |  |  |  |  |
-| 332 | HCF |  |  |  |  |  |
-| 332 | KBashist |  |  |  |  |  |
-| 332 | sad |  |  |  |  |  |
-| 332 | Discord doesn't work can we please use email instead kthxbye |  |  |  |  |  |
-| 332 | ml-brothers |  |  |  |  |  |
-| 332 | zenito9970 |  |  |  |  |  |
-| 332 | not used |  |  |  |  |  |
-| 332 | Binary_Three |  |  |  |  |  |
-| 332 | The Demolishers |  |  |  |  |  |
-| 332 | @mask |  |  |  |  |  |
-| 332 | Strength |  |  |  |  |  |
-| 332 | Vic |  |  |  |  |  |
-| 332 | leojean890 |  |  |  |  |  |
-| 332 | bark but don't bite |  |  |  |  |  |
-| 332 | past_army |  |  |  |  |  |
-| 332 | solo_coder |  |  |  |  |  |
-| 332 | DETOX |  |  |  |  |  |
-| 332 | Cail_Team |  |  |  |  |  |
-| 332 | Dyalog hehe |  |  |  |  |  |
-| 332 | Test |  |  |  |  |  |
-| 332 | SKL |  |  |  |  |  |
-| 332 | ilikerice |  |  |  |  |  |
-| 332 | De Stomme van Campen |  |  |  |  |  |
-| 332 | ccc |  |  |  |  |  |
-| 332 | not_participating |  |  |  |  |  |
-| 332 | Golden Middle |  |  |  |  |  |
-| 332 | wheezards |  |  |  |  |  |
-| 332 | <please-delete> |  |  |  |  |  |
-| 332 | Reflex12 |  |  |  |  |  |
-| 332 | Pi |  |  |  |  |  |
-| 332 | (mistakenly registered) |  |  |  |  |  |
-| 332 | shukhrat |  |  |  |  |  |
-| 332 | globalstudent |  |  |  |  |  |
-| 332 | a |  |  |  |  |  |
-| 332 | serious |  |  |  |  |  |
-| 332 | elmurod |  |  |  |  |  |
-| 332 | asldev |  |  |  |  |  |
-| 332 | ut |  |  |  |  |  |
-| 332 | dapps |  |  |  |  |  |
-| 332 | fp[uk] |  |  |  |  |  |
-| 332 | O'zim |  |  |  |  |  |
-| 332 | Quarks |  |  |  |  |  |
-| 332 | wanui |  |  |  |  |  |
-| 332 | VL |  |  |  |  |  |
-| 332 | xmtpj |  |  |  |  |  |
-| 332 | Lian Yu |  |  |  |  |  |
-| 332 | SomeTeam |  |  |  |  |  |
-| 332 | LILik |  |  |  |  |  |
-| 332 | Willie_the_Westie |  |  |  |  |  |
-| 332 | nyiyui |  |  |  |  |  |
-| 332 | seiyakyokai |  |  |  |  |  |
-| 332 | Endoscopic |  |  |  |  |  |
-| 332 | tryers |  |  |  |  |  |
-| 332 | devai |  |  |  |  |  |
-| 332 | ?? |  |  |  |  |  |
-| 332 | max-theht-xam |  |  |  |  |  |
-| 332 | Nt4fVr8KeE2na3m |  |  |  |  |  |
-| 332 | p-coder |  |  |  |  |  |
-| 332 | mistake |  |  |  |  |  |
-| 332 | Tetromino |  |  |  |  |  |
-| 332 | YbB |  |  |  |  |  |
-| 332 | mont |  |  |  |  |  |
-| 332 | miss |  |  |  |  |  |
-| 332 | Krizai |  |  |  |  |  |
-| 332 | test |  |  |  |  |  |
-| 332 | PalamPa |  |  |  |  |  |
-| 332 | Duck |  |  |  |  |  |
+| 1 | B$ L$ B$ v$ v$ L$ B$ v$ v$ | 1 | 1 | 4 | 2 | 1 |
+| 2 | Unagi | 1 | 5 | 1 | 3 | 1 |
+| 3 | Heuristic Artis | 1 | 3 | 2 | 5 | 1 |
+| 4 | Purely Functional Networks | 1 | 2 | 5 | 4 | 1 |
+| 5 | manarimo | 1 | 12 | 7 | 1 | 1 |
+| 6 | LogicLynx | 1 | 4 | 13 | 9 | 1 |
+| 7 | Spica | 1 | 10 | 9 | 10 | 1 |
+| 8 | Pigimarl | 1 | 6 | 22 | 8 | 1 |
+| 9 | Snakes, Monkeys, and Two Smoking Lambdas | 1 | 9 | 8 | 23 | 1 |
+| 10 | topcoder_is_dead | 1 | 21 | 6 | 18 | 1 |
+| 11 | TSG | 1 | 13 | 12 | 22 | 1 |
+| 11 | RGBTeam | 1 | 18 | 3 | 26 | 1 |
+| 13 | Gon The Fox | 1 | 25 | 10 | 15 | 1 |
+| 14 | TBD | 1 | 20 | 14 | 17 | 1 |
+| 15 | udfew | 1 | 28 | 20 | 6 | 1 |
+| 16 | DiamondPrincess | 1 | 7 | 28 | 20 | 1 |
+| 17 | ?? ???? | 1 | 14 | 31 | 10 | 1 |
+| 18 | The Cat is #1!! | 1 | 11 | 23 | 25 | 1 |
+| 19 | ??? | 1 | 22 | 21 | 24 | 1 |
+| 20 | powder | 1 | 19 | 11 | 38 | 1 |
+| 21 | chirijako | 1 | 41 | 25 | 13 | 1 |
+| 22 | Raging Mushrooms | 1 | 24 | 24 | 34 | 1 |
+| 23 | negainoido | 1 | 56 | 17 | 14 | 1 |
+| 24 | WILD BASHKORT MAGES | 1 | 30 | 19 | 41 | 1 |
+| 25 | piggyhack | 1 | 26 | 35 | 30 | 1 |
+| 26 | code-o-matic | 1 | 32 | 32 | 31 | 1 |
+| 26 | Jumbo Chicken | 1 | 23 | 29 | 43 | 1 |
+| 28 | Panicked Albatross | 1 | 15 | 45 | 29 | 62 |
+| 29 | The Blind Hen | 1 | 29 | 36 | 35 | 1 |
+| 30 | kamirulez! | 1 | 38 | 41 | 33 | 1 |
+| 31 | pegovka | 1 | 34 | 37 | 42 | 1 |
+| 32 | Cult of the Bound Variable | 1 | 31 | 55 | 36 | 1 |
+| 33 | tomerun | 1 | 17 | 16 | 90 | 1 |
+| 34 | jabber.ru | 1 | 80 | 33 | 12 | 1 |
+| 35 | hirosegolf | 1 | 62 | 27 | 37 | 1 |
+| 36 | yorofuwa | 1 | 27 | 30 | 69 | 1 |
+| 37 | Olympia | 1 | 57 | 44 | 21 | 65 |
+| 38 | tsickle | 1 | 44 | 52 | 40 | 1 |
+| 39 | 46 TiB | 1 | 52 | 34 | 52 | 1 |
+| 40 | codingteam | 1 | 43 | 49 | 46 | 58 |
+| 40 | Perpetuum Mobile | 1 | 45 | 46 | 51 | 1 |
+| 42 | THIRTEEN | 1 | 36 | 54 | 56 | 1 |
+| 43 | LILiK | 1 | 48 | 42 | 57 | 1 |
+| 44 | toomer | 1 | 39 | 51 | 58 | 1 |
+| 45 | A Storm of Minds | 1 | 65 | 65 | 19 | 1 |
+| 46 | hikkash | 1 | 58 | 43 | 50 | 1 |
+| 47 | Leaf Pie | 1 | 16 | 83 | 55 | 1 |
+| 48 | sonna*baka*na | 1 | 49 | 47 | 32 | 78 |
+| 49 | mipt.lambda | 1 | 33 | 79 | 49 | 1 |
+| 50 | Zebra Infused Hamsters | 1 | 46 | 38 | 78 | 1 |
+| 51 | kumanomi | 1 | 54 | 26 | 44 | 89 |
+| 52 | sanma | 1 | 53 | 68 | 39 | 66 |
+| 53 | Ty chyo pyos? | 1 | 74 | 40 | 63 | 1 |
+| 54 | Frictionless Bananas | 1 | 8 | 131 | 45 | 1 |
+| 55 | irori | 1 | 35 | 94 | 61 | 1 |
+| 55 | Bottle kids! | 1 | 40 | 77 | 73 | 1 |
+| 57 | radeye | 1 | 71 | 18 | 64 | 89 |
+| 58 | Turing Machinists | 1 | 73 | 81 | 27 | 68 |
+| 59 | tratata | 1 | 60 | 48 | 84 | 61 |
+| 60 | Kirby's Star Allies | 1 | 50 | 67 | 66 | 75 |
+| 61 | Maximum | 1 | 72 | 53 | 54 | 78 |
+| 62 | Forthissimo | 1 | 51 | 60 | 69 | 86 |
+| 63 | xfold | 1 | 118 | 15 | 72 | 62 |
+| 64 | ilikerice | 1 | 42 | 50 | 105 | 71 |
+| 65 | Team Sampou | 1 | 68 | 75 | 76 | 1 |
+| 66 | Dare Ludum | 1 | 55 | 91 | 60 | 78 |
+| 67 | undercut | 1 | 93 | 62 | 28 | 104 |
+| 68 | Human Instrumentality Project | 1 | 64 | 111 | 68 | 62 |
+| 69 | PLRG :: Bristol | 1 | 61 | 106 | 85 | 60 |
+| 70 | Sunspear | 1 | 47 | 58 | 79 | 116 |
+| **71** | ****dysfunctional** | **piglets**** | **184** | **89** | **98** | **65** | **68** |
+| 72 | Lamda Quakens | 1 | 83 | 82 | 83 | 78 |
+| 72 | optima | 1 | 70 | 72 | 53 | 116 |
+| 74 | wheezards | 1 | 76 | 103 | 100 | 56 |
+| 75 | Gobelet | 1 | 79 | 76 | 102 | 78 |
+| 76 | Limiting Factor | 1 | 94 | 112 | 87 | 1 |
+| 77 | lambda-llama | 1 | 86 | 109 | 100 | 59 |
+| 78 | Nixie Tubes | 1 | 59 | 57 | 104 | 116 |
+| 79 | shinh | 1 | 129 | 126 | 7 | 89 |
+| 80 | killswitch | 1 | 111 | 127 | 48 | 77 |
+| 81 | cipher | 1 | 122 | 88 | 92 | 75 |
+| 82 | TCPC | 1 | 103 | 87 | 62 | 116 |
+| 83 | cashto | 1 | 145 | 110 | 81 | 57 |
+| 84 | idkjava | 1 | 135 | 147 | 59 | 1 |
+| 85 | taxidriver | 1 | 84 | 85 | 91 | 116 |
+| 86 | s1mahoeg | 1 | 153 | 100 | 47 | 104 |
+| 87 | OpenMasters | 1 | 116 | 71 | 98 | 116 |
+| 88 | OMGICFPFTW | 1 | 114 | 102 | 74 | 116 |
+| 89 | Croco (discord&twitter must die) | 1 | 82 | 151 | 88 | 104 |
+| 89 | uguu.org | 1 | 92 | 137 | 108 | 99 |
+| 91 | xyz600 | 1 | 88 | 156 | 94 | 104 |
+| 92 | Cup<T> | 1 | 179 | 128 | 109 | 68 |
+| 93 | *uni* | 1 | 87 | 156 | 103 | 104 |
+| 94 | Crownfall Crew | 1 | 154 | 156 | 95 | 67 |
+| 95 | tmd | 1 | 146 | 121 | 106 | 116 |
+| 96 | JumpingJaguar | 1 | 218 | 143 | 98 | 1 |
+| 97 | sushi-gakushi | 1 | 133 | 156 | 86 | 116 |
+| 98 | locally constant | 1 | 75 | 64 |  | 86 |
+| 99 | Team Solo Mec | 1 | 171 | 156 | 89 | 116 |
+| 100 | Team Meh | 1 | 96 | 39 | 97 |  |
+| 100 | Lama | 1 | 37 | 119 | 76 |  |
+| 102 | mj | 1 | 120 | 56 |  | 71 |
+| 103 | NetworkNinjas | 1 | 95 | 95 | 75 |  |
+| 104 | KMC | 188 | 160 | 134 | 107 | 116 |
+| 104 | p-coder | 188 | 132 | 156 | 82 | 116 |
+| 106 | glua.team | 1 | 121 | 68 |  | 78 |
+| 107 | sjoerd_visscher | 1 | 85 | 105 |  | 89 |
+| 108 | brbrbrbrfr | 1 | 81 | 99 | 110 |  |
+| 109 | hayato | 1 | 128 | 66 |  | 89 |
+| 109 | 0A | 1 | 113 | 104 |  | 71 |
+| 111 | Dimetrodon | 1 | 98 | 63 |  | 116 |
+| 112 | tipstar0125 | 1 | 90 | 93 |  | 116 |
+| 113 | pointless | 1 | 77 | 115 |  | 116 |
+| 114 | igusarov | 1 | 67 | 151 |  | 104 |
+| 115 | 910z | 1 | 164 | 74 | 96 |  |
+| 116 | O Caml My Caml | 1 | 144 | 125 | 71 |  |
+| 117 | Channable & Friends | 1 | 69 | 134 |  | 116 |
+| 118 | Ateam | 188 | 99 | 101 | 67 |  |
+| 119 | Invisible Imp | 1 | 182 |  | 80 | 89 |
+| 120 | Better, late, then never | 1 | 166 | 89 |  | 104 |
+| 121 | GrinGene | 1 | 157 | 114 |  | 101 |
+| 122 | Lyrical Tokarev | 1 | 117 | 148 |  | 104 |
+| 123 | Junkfood | 1 | 181 | 107 |  | 102 |
+| 124 | sh | 1 | 106 | 156 |  | 98 |
+| 125 | Massive force to give up | 184 | 155 | 139 |  | 100 |
+| 126 | lambdametal | 1 | 178 | 141 |  | 78 |
+| 127 | C64 | 182 | 161 | 117 |  | 116 |
+| 128 | unsatcore | 1 | 194 | 156 |  | 55 |
+| 129 | DNIWE :: a | 1 | 248 | 108 |  | 86 |
+| 130 | Sabae no Applicative Functor | 1 | 232 | 153 |  | 78 |
+| 131 | UA_paiv | 1 | 163 | 156 |  | 116 |
+| 131 | poyo | 1 | 186 | 156 |  | 115 |
+| 133 | ToastUz | 1 | 96 | 61 |  |  |
+| 134 | zfhrp | 1 | 196 | 156 |  | 116 |
+| 135 | Levinski | 1 | 91 | 84 |  |  |
+| 136 | Task Manager (Not Responding) | 184 | 99 |  |  | 71 |
+| 137 | Side Effects May Include... | 1 | 107 | 85 |  |  |
+| 138 | wendigogo | 1 | 105 | 92 |  |  |
+| 139 | Pure Laziness | 188 | 63 | 59 |  |  |
+| 140 | Sayang <3 | 1 | 136 | 73 |  |  |
+| 141 | Sihl++ | 1 | 112 |  |  | 104 |
+| 142 | skermes | 264 | 198 | 156 |  | 89 |
+| 143 | miniBill | 1 |  | 120 |  | 104 |
+| 144 | Drmk | 188 | 66 | 96 |  |  |
+| 144 | Slow | 1 | 147 | 97 |  |  |
+| 146 | pandaT | 1 | 124 | 134 |  |  |
+| 147 | samayou_kaede | 1 | 131 | 130 |  |  |
+| 148 | botrevenge | 1 | 125 |  |  | 116 |
+| 149 | Helicoidal Bytecode | 1 | 168 |  |  | 89 |
+| 149 | ??? | 1 | 115 | 148 |  |  |
+| 151 | XLERB | 188 | 198 | 156 |  | 116 |
+| 151 | DePauw with a W | 188 | 198 | 156 |  | 116 |
+| 153 | Rick Zapor | 188 | 110 | 78 |  |  |
+| 154 | Rogue Operations | 188 | 138 | 70 |  |  |
+| 154 | the-bam | 1 | 157 | 132 |  |  |
+| 156 | cw | 1 | 108 | 156 |  |  |
+| 157 | shim0 | 1 | 156 | 142 |  |  |
+| 158 | R22b | 188 | 102 | 116 |  |  |
+| 159 | masataka | 1 | 184 | 124 |  |  |
+| 160 | Intrepid Investigator | 1 | 197 |  |  | 104 |
+| 161 | Sigmoid Freud | 188 | 78 | 153 |  |  |
+| 162 | Pi | 188 | 101 | 133 |  |  |
+| 163 | Dis Functional | 1 | 189 | 129 |  |  |
+| 164 | yowa | 1 | 198 | 113 |  |  |
+| 165 | Lamb-duh | 188 | 162 | 90 |  |  |
+| 166 | nesinboh | 184 | 176 | 155 |  |  |
+| 167 | Pech1 | 1 | 148 | 156 |  |  |
+| 168 | goto11 | 188 | 139 | 118 |  |  |
+| 168 | yupiteru | 1 | 193 | 143 |  |  |
+| 170 | RSQRTSS | 1 | 198 |  |  | 116 |
+| 171 | unsafePerform.IO | 264 | 173 |  |  | 89 |
+| 172 | Serpens Viridis | 1 | 172 | 156 |  |  |
+| 173 | ush | 1 |  |  | 16 |  |
+| 174 | Undecidable | 1 | 183 | 191 |  |  |
+| 175 | meanmate | 289 | 123 |  | 93 |  |
+| 176 | GeriatricCoder | 188 | 177 | 138 |  |  |
+| 177 | Lambgaga | 1 | 198 | 156 |  |  |
+| 177 | Tusan | 1 | 198 | 156 |  |  |
+| 177 | sash | 1 | 198 | 156 |  |  |
+| 180 | UnlikelyToSucceed | 188 | 175 | 148 |  |  |
+| 181 | takus | 188 | 148 | 156 |  |  |
+| 182 | hk | 272 | 180 | 143 |  |  |
+| 182 | help | 1 | 232 | 156 |  |  |
+| 184 | camel_case | 1 | 232 | 192 |  |  |
+| 185 | FunctionalPerls | 188 | 198 | 143 |  |  |
+| 186 | FIRQ | 188 | 232 | 122 |  |  |
+| 187 | naminoneiro | 188 | 185 | 156 |  |  |
+| 188 | 3b | 1 |  |  |  | 102 |
+| 189 | ;Unbound variable: teamname | 188 | 188 | 156 |  |  |
+| 189 | Dr0ne | 1 | 104 |  |  |  |
+| 191 | Heklers @ < 16% | 188 | 190 | 156 |  |  |
+| 192 | sanityinc | 1 | 109 |  |  |  |
+| 193 | CamYarra | 188 | 195 | 156 |  |  |
+| 193 | Pure Laziness (backup account) | 188 | 232 | 140 |  |  |
+| 195 | OxBox | 188 | 198 | 156 |  |  |
+| 196 | Sumedh Girish | 188 | 215 | 156 |  |  |
+| 197 | uneu.net | 1 | 140 |  |  |  |
+| 198 | Prof Prog | 1 | 142 |  |  |  |
+| 199 | Xeniac | 188 | 218 | 156 |  |  |
+| 199 | aaaaaaaaaa2230 | 188 | 218 | 156 |  |  |
+| 201 | ishmeal | 1 | 150 |  |  |  |
+| 202 | Waterloo Napoleons | 1 | 151 |  |  |  |
+| 203 | jm | 1 | 152 |  |  |  |
+| 204 | tryhard | 266 | 228 | 156 |  |  |
+| 205 | N?rke Nation | 188 | 232 | 156 |  |  |
+| 206 | sbite0138 | 188 | 245 | 156 |  |  |
+| 206 | Canivsar | 188 |  | 80 |  |  |
+| 208 | monoid | 188 | 247 | 190 |  |  |
+| 209 | Bue World | 1 | 165 |  |  |  |
+| 210 | janiczek | 1 | 169 |  |  |  |
+| 211 | gdb | 1 | 187 |  |  |  |
+| 212 | gaha | 188 | 118 |  |  |  |
+| 213 | theta | 188 |  | 123 |  |  |
+| 214 | 7999f27ae4db | 188 | 126 |  |  |  |
+| 215 | Pi | 188 | 127 |  |  |  |
+| 216 | DavidB | 188 | 130 |  |  |  |
+| 217 | Leg of Lambda | 1 | 198 |  |  |  |
+| 217 | insert team name here | 1 | 198 |  |  |  |
+| 219 | FCCPC | 188 | 134 |  |  |  |
+| 220 | LoneBot | 188 | 141 |  |  |  |
+| 221 | Pseudo  | 188 | 143 |  |  |  |
+| 222 | almosthere | 1 | 218 |  |  |  |
+| 223 | POCSlackers | 289 | 218 | 156 |  |  |
+| 224 | keles | 188 | 159 |  |  |  |
+| 225 | just_me | 272 | 137 |  |  |  |
+| 226 | Apprentice | 188 | 167 |  |  |  |
+| 227 | peterm | 188 | 169 |  |  |  |
+| 228 | Timur | 188 | 174 |  |  |  |
+| 229 | ai | 188 | 198 |  |  |  |
+| 230 | Kaos | 272 | 190 |  |  |  |
+| 230 | I-M-X | 188 | 217 |  |  |  |
+| 230 | Mimir's k?lla | 272 | 190 |  |  |  |
+| 233 | Kashell | 188 | 218 |  |  |  |
+| 233 | Rasengan | 188 | 218 |  |  |  |
+| 233 | wolfadex | 188 | 218 |  |  |  |
+| 233 | Whoknows | 188 | 218 |  |  |  |
+| 237 | corylopsis | 188 | 228 |  |  |  |
+| 238 | CoderMal | 188 | 230 |  |  |  |
+| 239 | fp[uk] | 188 | 231 |  |  |  |
+| 240 | Lexi | 272 | 198 |  |  |  |
+| 240 | Distracted Corvids | 272 | 198 |  |  |  |
+| 242 | NasconDini | 272 | 214 |  |  |  |
+| 243 | ShadySharingan | 188 | 232 |  |  |  |
+| 243 | h4rr9 | 188 | 232 |  |  |  |
+| 243 | SPAAACE | 188 | 232 |  |  |  |
+| 246 | Codice Loco ( ?? ?? ??) | 188 | 245 |  |  |  |
+| 247 | Affliction | 272 | 218 |  |  |  |
+| 247 | Ground Truth | 266 | 232 |  |  |  |
+| 249 | turbolent | 272 | 232 |  |  |  |
+| 250 | The Higher Order Of Zeuxis | 1 |  |  |  |  |
+| 250 | Docet Omnia | 1 |  |  |  |  |
+| 250 | fantastic-couscous | 1 |  |  |  |  |
+| 250 | h4 | 1 |  |  |  |  |
+| 250 | 3GjcVykuxyD82HE | 1 |  |  |  |  |
+| 250 | xiberfix | 1 |  |  |  |  |
+| 250 | uta | 1 |  |  |  |  |
+| 250 | Isaac Clarke | 1 |  |  |  |  |
+| 250 | Mosa Fett | 1 |  |  |  |  |
+| 259 | treedub | 182 |  |  |  |  |
+| 260 | ???? | 289 | 198 |  |  |  |
+| 261 | treechicken | 289 | 216 |  |  |  |
+| 262 | winterfell | 289 | 232 |  |  |  |
+| 262 | MangoPeeled | 289 | 232 |  |  |  |
+| 264 | Snowbot Brigade | 188 |  |  |  |  |
+| 264 | cyberecho | 188 |  |  |  |  |
+| 264 | Sha90w | 188 |  |  |  |  |
+| 264 | eggy | 188 |  |  |  |  |
+| 264 | juu_me_myself_I | 188 |  |  |  |  |
+| 264 | Duck | 188 |  |  |  |  |
+| 264 | quyse | 188 |  |  |  |  |
+| 264 | the-sinner | 188 |  |  |  |  |
+| 264 | TeamTeam | 188 |  |  |  |  |
+| 264 | suicide | 188 |  |  |  |  |
+| 264 | TerrorBytes | 188 |  |  |  |  |
+| 264 | Lambda Collective | 188 |  |  |  |  |
+| 264 | N0BML | 188 |  |  |  |  |
+| 264 | ThinkWithGames | 188 |  |  |  |  |
+| 264 | 4eta | 188 |  |  |  |  |
+| 264 | Various slide rules | 188 |  |  |  |  |
+| 264 | Freddy Pringle | 188 |  |  |  |  |
+| 264 | wanui | 188 |  |  |  |  |
+| 264 | Dysfunction | 188 |  |  |  |  |
+| 283 | Hacksell | 266 |  |  |  |  |
+| 283 | Keksfreunde | 266 |  |  |  |  |
+| 283 | a | 266 |  |  |  |  |
+| 283 | TS_TCPC | 266 |  |  |  |  |
+| 287 | Play Dominion, now on Steam, Apple or Google Play | 272 |  |  |  |  |
+| 287 | balonit_bros | 272 |  |  |  |  |
+| 287 | speakerteeth | 272 |  |  |  |  |
+| 287 | not_participating | 272 |  |  |  |  |
+| 287 | mcpony | 272 |  |  |  |  |
+| 287 | azak | 272 |  |  |  |  |
+| 287 | Golden Middle | 272 |  |  |  |  |
+| 287 | poka | 272 |  |  |  |  |
+| 295 | Zarief's Team | 289 |  |  |  |  |
+| 295 | Nicolas van Kempen | 289 |  |  |  |  |
+| 295 | Bowlerinas | 289 |  |  |  |  |
+| 295 | g7r | 289 |  |  |  |  |
+| 295 | team | 289 |  |  |  |  |
+| 295 | mistake | 289 |  |  |  |  |
+| 295 | woo hou feng | 289 |  |  |  |  |
+| 295 | dfyz | 289 |  |  |  |  |
+| 295 | Flat Earth Society - Jovian Chapter | 289 |  |  |  |  |
+| 295 | tsickle | 289 |  |  |  |  |
+| 295 | scanhex | 289 |  |  |  |  |
+| 295 | EvbCFfp1XB | 289 |  |  |  |  |
+| 295 | matmis | 289 |  |  |  |  |
+| 295 | TerrorBytes | 289 |  |  |  |  |
+| 295 | Briareos | 289 |  |  |  |  |
+| 295 | Nolan | 289 |  |  |  |  |
+| 295 | radeye | 289 |  |  |  |  |
+| 295 | WanderingLeaf | 289 |  |  |  |  |
+| 295 | TheAndyHorses | 289 |  |  |  |  |
+| 295 | nbu | 289 |  |  |  |  |
+| 295 | phoebeharris | 289 |  |  |  |  |
+| 295 | BurningSofaSoftware | 289 |  |  |  |  |
+| 295 | weird attractor | 289 |  |  |  |  |
+| 295 | LambLambda | 289 |  |  |  |  |
+| 295 | 4649 | 289 |  |  |  |  |
+| 295 | Triloxy | 289 |  |  |  |  |
+| 295 | fish and chips | 289 |  |  |  |  |
+| 295 | Isaq | 289 |  |  |  |  |
+| 295 | szn | 289 |  |  |  |  |
+| 295 | We have a Hulk | 289 |  |  |  |  |
+| 295 | Sigmoid Freud | 289 |  |  |  |  |
+| 295 | Gobelet | 289 |  |  |  |  |
+| 295 | TurtlePU | 289 |  |  |  |  |
+| 295 | sushi-gakushi | 289 |  |  |  |  |
+| 295 | DEIN | 289 |  |  |  |  |
+| 295 | no-team | 289 |  |  |  |  |
+| 295 | Cail_Team | 289 |  |  |  |  |
+| 295 | spid2007 | 289 |  |  |  |  |
+| 295 | Blue Iris | 289 |  |  |  |  |
+| 295 | Now Loading... | 289 |  |  |  |  |
+| 295 | Stochastic Pretzels | 289 |  |  |  |  |
+| 295 | bscii | 289 |  |  |  |  |
+| 295 | farwah | 289 |  |  |  |  |
+| 295 | ? | 289 |  |  |  |  |
+| 295 | quoc28 | 289 |  |  |  |  |
+| 295 | awawa | 289 |  |  |  |  |
+| 295 | gummycandy | 289 |  |  |  |  |
+| 295 | Man with a minivan | 289 |  |  |  |  |
+| 295 | Q | 289 |  |  |  |  |
+| 295 | kakira | 289 |  |  |  |  |
+| 295 | skullgang | 289 |  |  |  |  |
+| 295 | Aqqrs | 289 |  |  |  |  |
+| 295 | cleanlean | 289 |  |  |  |  |
+| 295 | Scr4peR | 289 |  |  |  |  |
+| 295 | Typeclass Without Laws | 289 |  |  |  |  |
+| 295 | Fixed but mostly pointless | 289 |  |  |  |  |
+| 295 | mmohammadi9812 | 289 |  |  |  |  |
+| 295 | yosupo | 289 |  |  |  |  |
+| 295 | ()-age | 289 |  |  |  |  |
+| 295 | lotren | 289 |  |  |  |  |
+| 295 | Luke & Hamish | 289 |  |  |  |  |
+| 356 | The Old Man and the C |  |  |  |  |  |
+| 356 | Hollow Purple |  |  |  |  |  |
+| 356 | D Yang |  |  |  |  |  |
+| 356 | LLAMACHAIN |  |  |  |  |  |
+| 356 | null |  |  |  |  |  |
+| 356 | F47 |  |  |  |  |  |
+| 356 | maron8676 |  |  |  |  |  |
+| 356 | Team AK |  |  |  |  |  |
+| 356 | hustlers |  |  |  |  |  |
+| 356 | SoloQueue |  |  |  |  |  |
+| 356 | Fantastic 4 |  |  |  |  |  |
+| 356 | Slasher |  |  |  |  |  |
+| 356 | Dynamo |  |  |  |  |  |
+| 356 | Codehunters |  |  |  |  |  |
+| 356 | jonathanprogramming |  |  |  |  |  |
+| 356 | DarkKnignt |  |  |  |  |  |
+| 356 | plan arado |  |  |  |  |  |
+| 356 | ateam |  |  |  |  |  |
+| 356 | ateam |  |  |  |  |  |
+| 356 | aaaa |  |  |  |  |  |
+| 356 | GRARIO |  |  |  |  |  |
+| 356 | Miracle |  |  |  |  |  |
+| 356 | Want To Delete This Account |  |  |  |  |  |
+| 356 | solo rank |  |  |  |  |  |
+| 356 | ? |  |  |  |  |  |
+| 356 | V |  |  |  |  |  |
+| 356 | InKryptz |  |  |  |  |  |
+| 356 | swayingfish |  |  |  |  |  |
+| 356 | One-Pass Gang |  |  |  |  |  |
+| 356 | beginner |  |  |  |  |  |
+| 356 | random_team |  |  |  |  |  |
+| 356 | ToiToi |  |  |  |  |  |
+| 356 | Gassa |  |  |  |  |  |
+| 356 | blueboar's team |  |  |  |  |  |
+| 356 | Ace_yuki |  |  |  |  |  |
+| 356 | AAV2024 |  |  |  |  |  |
+| 356 | The Marauder |  |  |  |  |  |
+| 356 | 0xValhalla |  |  |  |  |  |
+| 356 | HCF |  |  |  |  |  |
+| 356 | KBashist |  |  |  |  |  |
+| 356 | sad |  |  |  |  |  |
+| 356 | Discord doesn't work can we please use email instead kthxbye |  |  |  |  |  |
+| 356 | ml-brothers |  |  |  |  |  |
+| 356 | zenito9970 |  |  |  |  |  |
+| 356 | not used |  |  |  |  |  |
+| 356 | Binary_Three |  |  |  |  |  |
+| 356 | The Demolishers |  |  |  |  |  |
+| 356 | @mask |  |  |  |  |  |
+| 356 | Strength |  |  |  |  |  |
+| 356 | Vic |  |  |  |  |  |
+| 356 | leojean890 |  |  |  |  |  |
+| 356 | bark but don't bite |  |  |  |  |  |
+| 356 | past_army |  |  |  |  |  |
+| 356 | solo_coder |  |  |  |  |  |
+| 356 | DETOX |  |  |  |  |  |
+| 356 | Cail_Team |  |  |  |  |  |
+| 356 | Dyalog hehe |  |  |  |  |  |
+| 356 | Test |  |  |  |  |  |
+| 356 | SKL |  |  |  |  |  |
+| 356 | ilikerice |  |  |  |  |  |
+| 356 | De Stomme van Campen |  |  |  |  |  |
+| 356 | ccc |  |  |  |  |  |
+| 356 | Golden Middle |  |  |  |  |  |
+| 356 | wheezards |  |  |  |  |  |
+| 356 | <please-delete> |  |  |  |  |  |
+| 356 | Reflex12 |  |  |  |  |  |
+| 356 | Pi |  |  |  |  |  |
+| 356 | (mistakenly registered) |  |  |  |  |  |
+| 356 | shukhrat |  |  |  |  |  |
+| 356 | globalstudent |  |  |  |  |  |
+| 356 | a |  |  |  |  |  |
+| 356 | serious |  |  |  |  |  |
+| 356 | elmurod |  |  |  |  |  |
+| 356 | asldev |  |  |  |  |  |
+| 356 | ut |  |  |  |  |  |
+| 356 | dapps |  |  |  |  |  |
+| 356 | fp[uk] |  |  |  |  |  |
+| 356 | O'zim |  |  |  |  |  |
+| 356 | Quarks |  |  |  |  |  |
+| 356 | VL |  |  |  |  |  |
+| 356 | xmtpj |  |  |  |  |  |
+| 356 | Lian Yu |  |  |  |  |  |
+| 356 | SomeTeam |  |  |  |  |  |
+| 356 | LILik |  |  |  |  |  |
+| 356 | Willie_the_Westie |  |  |  |  |  |
+| 356 | nyiyui |  |  |  |  |  |
+| 356 | seiyakyokai |  |  |  |  |  |
+| 356 | Endoscopic |  |  |  |  |  |
+| 356 | tryers |  |  |  |  |  |
+| 356 | devai |  |  |  |  |  |
+| 356 | ?? |  |  |  |  |  |
+| 356 | max-theht-xam |  |  |  |  |  |
+| 356 | Nt4fVr8KeE2na3m |  |  |  |  |  |
+| 356 | p-coder |  |  |  |  |  |
+| 356 | Tetromino |  |  |  |  |  |
+| 356 | YbB |  |  |  |  |  |
+| 356 | mont |  |  |  |  |  |
+| 356 | miss |  |  |  |  |  |
+| 356 | Krizai |  |  |  |  |  |
+| 356 | test |  |  |  |  |  |
+| 356 | PalamPa |  |  |  |  |  |
+| 356 | ZeroOne |  |  |  |  |  |
+| 356 | CR7 Syntax |  |  |  |  |  |
+| 356 | TheBeastProgrammers |  |  |  |  |  |
+| 356 | a05a309b-6f47-4a46-8c96-282c6722d17b |  |  |  |  |  |
+| 356 | happy15 |  |  |  |  |  |
+| 356 | Recite to Rewrite |  |  |  |  |  |
+| 356 | PhdThai&Love |  |  |  |  |  |
+| 356 | Ronan C |  |  |  |  |  |
+| 356 | CodeKage |  |  |  |  |  |
+| 356 | Maple Bacon |  |  |  |  |  |
 
 You scored some points for looking at the scoreboard! You can also do `get scoreboard <coursename>` to see the scoreboard for a specific course.
 
