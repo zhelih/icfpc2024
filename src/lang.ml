@@ -2,6 +2,8 @@ open Printf
 open Devkit
 open ExtLib
 
+let tee f x = f x; x
+
 let alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!\"#$%&'()*+,-./:;<=>?@[\\]^_`|~ \n"
 let alphabet_inv = String.init 256 (fun i -> match String.index alphabet (Char.chr i) with exception _ -> '\x00' | p -> Char.chr (p+33))
 let () = assert (String.length alphabet = 94)
@@ -42,6 +44,7 @@ type t =
 | Int_of_string of t
 | String_of_int of t
 | If of t * t * t
+| Recurse of int * int * t
 [@@deriving show {with_path=false}]
 
 let decode_int s = fst @@ String.fold_right (fun c (acc,exp) -> let c = Char.code c - 33 in Z.(of_int c * exp + acc), Z.(exp * Z.of_int 94)) s Z.(zero,one)
@@ -139,6 +142,7 @@ let rec encode = function
   | String_of_int x -> sprintf "U$ %s" (encode x)
   | B (op,a,b) ->
     sprintf "B%c %s %s" (encode_binop op) (encode a) (encode b)
+  | Recurse _ -> assert false
 
 let expect_string = function
   | S s -> s
@@ -152,6 +156,7 @@ let substitute fn var exp =
   | B (op, a, b) -> B (op, subst a, subst b)
   | V i -> if i = var then exp else V i
   | L (v, body) -> L (v, if v = var then body else subst body) (* handle shadowing *)
+  | Recurse (v,arg,body) -> Recurse (v, arg, if v = var || arg = var then body else subst body)
   | Neg e -> Neg (subst e)
   | Not e -> Not (subst e)
   | Int_of_string e -> Int_of_string (subst e)
@@ -163,69 +168,6 @@ let substitute fn var exp =
 let three = Z.of_int 3
 let four = Z.of_int 4
 
-let rec int_eval x = match eval x with I n -> n | _ -> type_error "int" x
-and str_eval x = match eval x with S s -> s | _ -> type_error "string" x
-and bool_eval x = match eval x with Bool b -> b | _ -> type_error "bool" x
-and eval = function
-| Bool _ | I _ | S _ | L _ as x -> x
-| V n -> Exn.fail "unbound variable %d" n
-| Neg a -> I (Z.neg @@ int_eval a)
-| Not a -> Bool (not @@ bool_eval a)
-| Int_of_string a -> I (decode_int @@ encode_string @@ str_eval a)
-| String_of_int a -> S (decode_string @@ encode_int @@ int_eval a)
-| If (c,a,b) -> if bool_eval c then eval a else eval b
-| B (op,a,b) ->
-  let int e op = I (op (e a) (e b)) in
-  let bool e op = Bool (op (e a) (e b)) in
-  match op with
-  | Plus -> int int_eval Z.add
-  | Minus -> int int_eval Z.sub
-  | Mul ->
-    begin match a, b with
-    | I n, _ | _, I n when Z.equal n Z.zero -> I Z.zero
-    | _ -> int int_eval Z.mul
-    end
-  | Div ->
-    let a = int_eval a in
-    let b = int_eval b in
-    if b = four then I (Z.shift_right a 2) else
-    int int_eval Z.div
-  | Mod ->
-    begin match b with
-    | I z when Z.equal Z.one z -> I Z.zero
-    | _ ->
-    let a = int_eval a in
-    let b = int_eval b in
-    if b = four then I (Z.logand a three) else
-    int int_eval Z.rem
-    end
-  | LT -> bool int_eval (<)
-  | GT -> bool int_eval (>)
-  | Or ->
-    begin match a, b with
-    | Bool true, _ | _, Bool true -> Bool true
-    | _ -> bool bool_eval (||)
-    end
-  | And ->
-    begin match a, b with
-    | Bool false, _ | _, Bool false -> Bool false
-    | _ -> bool bool_eval (&&)
-    end
-  | Eq -> bool eval (=)
-  | Concat -> S (str_eval a ^ str_eval b)
-  | Drop -> S (String.slice ~first:(Z.to_int @@ int_eval a) (str_eval b))
-  | Take -> let s = (str_eval b) in print_char s.[0]; if Random.int 10 = 0 then flush stdout;  S (String.slice ~last:(Z.to_int @@ int_eval a) s)
-  | Apply ->
-    begin match eval a with
-    | L (var, fn) -> eval @@ substitute fn var b (* call-by-name *)
-    | x -> type_error "lambda" x
-    end
-  | ApplyCBV ->
-    begin match eval a with
-    | L (var, fn) -> eval @@ substitute fn var (eval b)
-    | x -> type_error "lambda" x
-    end
-
 let rec print' indent exp =
 let print = print' indent in
 match exp with
@@ -233,6 +175,7 @@ match exp with
 | I n -> Z.to_string n
 | S s -> sprintf "%S" s
 | L (v,fn) -> sprintf "(\\v%d ->\n%s%s)" v (String.make indent ' ') (print' (indent + 2) fn)
+| Recurse(v,arg,fn) -> sprintf "let rec v%d = (fun v%d ->\n%s%s) in v3" v arg (String.make indent ' ') (print' (indent+2) fn)
 | V n -> sprintf "v%d" n
 | Neg v -> sprintf "-%s" (print v)
 | Not v -> sprintf "!%s" (print v)
@@ -259,6 +202,78 @@ match exp with
 
 let print = print' 2
 
+let rec int_eval ctx x = match eval ctx x with I n -> n | _ -> type_error "int" x
+and str_eval ctx x = match eval ctx x with S s -> s | _ -> type_error "string" x
+and bool_eval ctx x = match eval ctx x with Bool b -> b | _ -> type_error "bool" x
+and eval ctx = function
+| Bool _ | I _ | S _ | L _ | Recurse _ as x -> x
+| V n -> begin match List.assoc_opt n ctx with Some e -> eval ctx e | None -> Exn.fail "unbound variable %d" n end
+| Neg a -> I (Z.neg @@ int_eval ctx a)
+| Not a -> Bool (not @@ bool_eval ctx a)
+| Int_of_string a -> I (decode_int @@ encode_string @@ str_eval ctx a)
+| String_of_int a -> S (decode_string @@ encode_int @@ int_eval ctx a)
+| If (c,a,b) -> if bool_eval ctx c then eval ctx a else eval ctx b
+| B (op,a,b) ->
+  let int e op = I (op (e ctx a) (e ctx b)) in
+  let bool e op = Bool (op (e ctx a) (e ctx b)) in
+  match op with
+  | Plus -> int int_eval Z.add
+  | Minus -> int int_eval Z.sub
+  | Mul ->
+    begin match a, b with
+    | I n, _ | _, I n when Z.equal n Z.zero -> I Z.zero
+    | _ -> int int_eval Z.mul
+    end
+  | Div ->
+    let a = int_eval ctx a in
+    let b = int_eval ctx b in
+    if b = four then I (Z.shift_right a 2) else
+    int int_eval Z.div
+  | Mod ->
+    begin match b with
+    | I z when Z.equal Z.one z -> I Z.zero
+    | _ ->
+    let a = int_eval ctx a in
+    let b = int_eval ctx b in
+    if b = four then I (Z.logand a three) else
+    int int_eval Z.rem
+    end
+  | LT -> bool int_eval (<)
+  | GT -> bool int_eval (>)
+  | Or ->
+    begin match a, b with
+    | Bool true, _ | _, Bool true -> Bool true
+    | _ -> bool bool_eval (||)
+    end
+  | And ->
+    begin match a, b with
+    | Bool false, _ | _, Bool false -> Bool false
+    | _ -> bool bool_eval (&&)
+    end
+  | Eq -> bool eval (=)
+  | Concat -> S (str_eval ctx a ^ str_eval ctx b)
+  | Drop -> S (String.slice ~first:(Z.to_int @@ int_eval ctx a) (str_eval ctx b))
+  | Take -> let s = str_eval ctx b in print_char s.[0]; if Random.int 10 = 0 then flush stdout;  S (String.slice ~last:(Z.to_int @@ int_eval ctx a) s)
+  | Apply ->
+    begin match eval ctx a with
+    | L (var, fn) ->
+      eval (List.remove_assoc var ctx) @@ substitute fn var b (* call-by-name *)
+(*       @@ tee (fun e -> printfn "apply L : %s" (print e)) *)
+    | Recurse(self,var,fn) ->
+(*       let b = match eval ctx b with I n -> if Z.equal (Z.rem n (Z.of_int 100_000)) Z.zero then printfn "counter %s" (Z.to_string n); I n | x -> x in *)
+      eval ((self,Recurse(self,var,fn)) :: List.remove_assoc self (List.remove_assoc var ctx)) @@
+(*       tee (fun e -> printfn "eval %d apply Recurse : %s" (List.length ctx) (print e)) @@ *)
+      substitute fn var (eval ctx b)
+    | x -> type_error "lambda" x
+    end
+  | ApplyCBV ->
+    begin match eval ctx a with
+    | L (var, fn) -> eval (List.remove_assoc var ctx) @@ substitute fn var (eval ctx b)
+    | x -> type_error "lambda" x
+    end
+
+let eval x = eval [] x
+
 let map f = function
 | B (op,a,b) -> B (op,f a,f b)
 | S _ | Bool _ | I _ | V _ as x -> x
@@ -268,3 +283,10 @@ let map f = function
 | Int_of_string x -> Int_of_string (f x)
 | String_of_int x -> String_of_int (f x)
 | If (c,a,b) -> If (f c, f a, f b)
+| Recurse (self,arg,t) -> Recurse(self,arg,f t)
+
+(* (\v1 -> ((\v2 -> v1 (v2 v2)) (\v2 -> v1 (v2 v2)))) (\v3 -> \v4 -> ..) *)
+let rec apply_recurse = function
+| B(Apply,L(v1,B(Apply,L(v2,l1),L(v3,l2))),L(self,L(v,b))) as x
+  when l1 = B(Apply,V v1,B(Apply,V v2,V v2)) && l2 = B(Apply,V v1,B(Apply,V v3,V v3)) -> printfn "detected recurse : %s" (print x); Recurse(self,v,b)
+| x -> map apply_recurse x

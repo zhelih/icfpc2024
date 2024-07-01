@@ -14,7 +14,7 @@ let solve file =
   let t = Std.input_file file |> decode in
   let r =
     let int n = I (Z.of_int n) in
-    eval @@ match file with
+    eval @@ tee (print_endline $ print) @@ apply_recurse @@ match file with
     | "task/efficiency1" -> cbv t
     | "task/efficiency3" -> int @@ 9345873499+2134+1
     | "task/efficiency4" -> int @@ fib 40
