@@ -13,18 +13,17 @@ let fib n =
 let solve file =
   let t = Std.input_file file |> decode in
   let int n = I (Z.of_int n) in
-  let () =
-    printfn "print_int %s" @@ print @@ apply_recurse @@ match file with
+  let r =
+    match file with
     | "task/efficiency1" -> eval @@ cbv t
+    | "task/efficiency2" -> eval t
     | "task/efficiency3" -> int @@ 9345873499+2134+1
     | "task/efficiency4" -> int @@ fib 40
-    | "task/efficiency13" -> int 536870919
-    | _ -> t
-  in
-  exit 0
-(*
+    | "task/efficiency5" -> int @@ E5.solve ()
+    | "task/efficiency6" -> int @@ E6.solve ()
+    | "task/efficiency13" -> int @@ 2 lsl 13 + 7
+    | _ -> eval @@ tee (printfn "print_int %s" $ print) @@ apply_recurse @@ t
   in
   match r with
   | I n -> Z.to_string n |> tee print_endline
   | x -> Exn.fail "expected int, got %s" (print x)
-*)

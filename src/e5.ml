@@ -1,3 +1,4 @@
+let solve () =
 let v6 v5 =
   let rec v3 v4 = if (v4 = v5 / 2 + 1) then true else if ((v5 mod v4) = 0) then false else (v3 (v4+1)) in v3 2
 in
@@ -10,4 +11,4 @@ print_int (v3 1_000_000)
 let rec loop n =
   if n > 1_000_000 && v6 (n-1) then n else loop (n*2)
 in
-print_int @@ loop 2 - 1
+loop 2 - 1
