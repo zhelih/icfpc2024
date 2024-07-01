@@ -174,23 +174,23 @@ match exp with
 | Bool b -> sprintf "%B" b
 | I n -> Z.to_string n
 | S s -> sprintf "%S" s
-| L (v,fn) -> sprintf "(\\v%d ->\n%s%s)" v (String.make indent ' ') (print' (indent + 2) fn)
-| Recurse(v,arg,fn) -> sprintf "let rec v%d = (fun v%d ->\n%s%s) in v3" v arg (String.make indent ' ') (print' (indent+2) fn)
+| L (v,fn) -> sprintf "(fun v%d ->\n%s%s)" v (String.make indent ' ') (print' (indent + 2) fn)
+| Recurse(self,arg,fn) -> sprintf "(let v%d v%d = (fun v%d ->\n%s%s) in Memo.memoize v%d)" self self arg (String.make indent ' ') (print' (indent+2) fn) self
 | V n -> sprintf "v%d" n
 | Neg v -> sprintf "-%s" (print v)
-| Not v -> sprintf "!%s" (print v)
+| Not v -> sprintf "not %s" (print v)
 | Int_of_string v -> sprintf "#%s" (print v)
 | String_of_int v -> sprintf "$%s" (print v)
-| If (c,a,b) -> sprintf "if %s then %s else %s" (print c) (print a) (print b)
+| If (c,a,b) -> sprintf "(if %s then %s else %s)" (print c) (print a) (print b)
 | B (op,a,b) ->
   sprintf (match op with
   | Plus -> "(%s+%s)"
   | Mul -> "(%s*%s)"
   | Div -> "(%s/%s)"
-  | Mod -> "(%s %% %s)"
+  | Mod -> "(%s mod %s)"
   | Minus -> "(%s-%s)"
-  | Or -> "(%s or %s)"
-  | And -> "(%s and %s)"
+  | Or -> "(%s || %s)"
+  | And -> "(%s && %s)"
   | LT -> "(%s < %s)"
   | GT -> "(%s > %s)"
   | Eq -> "(%s = %s)"
@@ -287,6 +287,7 @@ let map f = function
 
 (* (\v1 -> ((\v2 -> v1 (v2 v2)) (\v2 -> v1 (v2 v2)))) (\v3 -> \v4 -> ..) *)
 let rec apply_recurse = function
-| B(Apply,L(v1,B(Apply,L(v2,l1),L(v3,l2))),L(self,L(v,b))) as x
-  when l1 = B(Apply,V v1,B(Apply,V v2,V v2)) && l2 = B(Apply,V v1,B(Apply,V v3,V v3)) -> printfn "detected recurse : %s" (print x); Recurse(self,v,b)
+| B(Apply,L(v1,B(Apply,L(v2,l1),L(v3,l2))),L(self,L(v,b)))
+  when l1 = B(Apply,V v1,B(Apply,V v2,V v2)) && l2 = B(Apply,V v1,B(Apply,V v3,V v3)) -> (* printfn "detected recurse : %s" (print x); *)
+    Recurse(self,v,apply_recurse b)
 | x -> map apply_recurse x
